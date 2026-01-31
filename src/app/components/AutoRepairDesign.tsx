@@ -22,7 +22,7 @@ export function AutoRepairDesign({ isNavSticky }: AutoRepairDesignProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsCallModalOpen(true);
-    }, 1500); // Increased slightly so the user can see the Hero first
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -41,14 +41,14 @@ export function AutoRepairDesign({ isNavSticky }: AutoRepairDesignProps) {
 
   return (
     <div className="relative w-full bg-[#1f1f24] min-h-screen">
-      {/* --- Top Info Bar (Optimized for Mobile) --- */}
+      {/* --- Top Info Bar --- */}
       <div className="bg-[#17161c] w-full px-4 lg:px-[70px] py-2 md:py-0 md:h-[87px] flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0 border-b border-white/5">
         
-        {/* Address Link */}
+        {/* FIXED: Accurate Google Maps Link */}
         <div className="flex items-center gap-2 max-w-[90%] md:max-w-none text-center md:text-left">
           <LocationIcon className="w-5 h-5 md:w-8 md:h-8 flex-shrink-0" />
           <a
-            href="https://goo.gl/maps/xyz"
+            href="https://www.google.com/maps/search/?api=1&query=Genuine+Auto+Repair+Umm+Ramool+Dubai"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#b3adb4] text-[12px] md:text-[14px] leading-tight hover:text-[#f0c93b] transition-colors"
@@ -75,11 +75,8 @@ export function AutoRepairDesign({ isNavSticky }: AutoRepairDesignProps) {
         </div>
       </div>
 
-      {/* Navigation - Always on top */}
       <Navigation isSticky={isNavSticky} />
 
-      {/* Main Content Sections */}
-      {/* Added scroll-mt-[100px] to handle the sticky header overlap */}
       <main>
         <section id="home" className="scroll-mt-[100px]">
           <HeroSection onCallClick={handleCallClick} />
@@ -103,17 +100,13 @@ export function AutoRepairDesign({ isNavSticky }: AutoRepairDesignProps) {
       </main>
 
       <Footer />
-
-      {/* Floating Action Buttons (WhatsApp/Phone) */}
       <StickySocialButtons />
-
-      {/* Call Modal */}
       <CallModal isOpen={isCallModalOpen} onClose={() => setIsCallModalOpen(false)} />
     </div>
   );
 }
 
-// --- Icons (Updated with className prop for responsiveness) ---
+// --- Icons ---
 
 function LocationIcon({ className }: { className?: string }) {
   return (
@@ -128,14 +121,8 @@ function LocationIcon({ className }: { className?: string }) {
 
 function PhoneIconTop({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 40 40" fill="none" className={className}>
-      <path
-        d="M32.9167 28.2167C30.75 28.2167 28.65 27.8667 26.7 27.2167C26.05 27 25.25 27.1667 24.7334 27.6667L21.3 31.8167C16.0334 29.3167 10.7834 24.1667 8.21671 18.8167L12.3167 15.25C12.8167 14.7333 12.9667 14 12.7667 13.3C12.1167 11.35 11.7667 9.25 11.7667 7.08334C11.7667 5.93334 10.8334 5 9.68337 5H5.68337C4.53337 5 3.33337 5.46667 3.33337 7.08334C3.33337 22.5333 15.55 34.6667 31 34.6667C32.55 34.6667 33.0834 33.5167 33.0834 32.3333V28.3667C33.0834 27.2167 32.0667 28.2167 32.9167 28.2167Z"
-        stroke="#F0C93B"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg viewBox="0 0 24 24" fill="none" className={className} stroke="#F0C93B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.81 12.81 0 0 0 .63 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.62A2 2 0 0 1 22 16.92z" />
     </svg>
   );
 }
@@ -145,10 +132,7 @@ function ClockIcon({ className }: { className?: string }) {
     <svg viewBox="0 0 40 40" fill="none" className={className}>
       <path
         d="M19.9917 6.66666C12.6334 6.66666 6.66669 12.65 6.66669 20C6.66669 27.35 12.6334 33.3333 19.9917 33.3333C27.3584 33.3333 33.3334 27.35 33.3334 20C33.3334 12.65 27.3584 6.66666 19.9917 6.66666ZM20 30C14.4834 30 10 25.5167 10 20C10 14.4833 14.4834 10 20 10C25.5167 10 30 14.4833 30 20C30 25.5167 25.5167 30 20 30ZM20.8334 13.3333H18.3334V21.6667L25.4167 25.8333L26.6667 23.8167L20.8334 20.4167V13.3333Z"
-        stroke="#F0C93B"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        fill="#F0C93B"
       />
     </svg>
   );

@@ -133,13 +133,17 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
         </div>
       </div>
 
-      {/* Map Section */}
+      {/* Map Section - FIXED SRC */}
       <motion.div className="mt-20 md:mt-32" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
         <div className="w-full h-[300px] md:h-[500px] rounded-2xl border-2 border-[#f0c93b]/30 overflow-hidden relative shadow-2xl">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.6105809774656!2d55.3648!3d25.22!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDEzJzEyLjAiTiA1NcKwMjEnNTMuMyJF!5e0!3m2!1sen!2sae!4v1700000000000"
-            width="100%" height="100%" style={{ border: 0, filter: "grayscale(1) invert(0.9) contrast(1.2)" }}
-            allowFullScreen loading="lazy" title="Location"
+            src="https://maps.google.com/maps?q=Genuine+Auto+Repair+Dubai+Umm+Ramool&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            width="100%" 
+            height="100%" 
+            style={{ border: 0, filter: "grayscale(1) invert(0.9) contrast(1.2)" }}
+            allowFullScreen 
+            loading="lazy" 
+            title="Location"
           />
         </div>
       </motion.div>
@@ -205,7 +209,7 @@ function TextAreaField({ label, value, onChange }: any) {
   );
 }
 
-// Fixed Sizing Icons
+// Icons
 function LocationIcon() { return <svg className="w-full h-auto" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>; }
 function PhoneIcon() { return <svg className="w-full h-auto" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>; }
 function EmailIcon() { return <svg className="w-full h-auto" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>; }

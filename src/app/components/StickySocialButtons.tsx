@@ -6,14 +6,14 @@ export function StickySocialButtons() {
     {
       name: "Facebook",
       icon: Facebook,
-      href: "https://www.facebook.com/genuineautorepair",
+      href: "https://www.facebook.com/profile.php?id=100084750101762",
       color: "#1877F2",
       hoverColor: "#1565C0",
     },
     {
       name: "Instagram",
       icon: Instagram,
-      href: "https://www.instagram.com/genuineautorepair",
+      href: "https://www.instagram.com/genuine.garage/",
       color: "#E4405F",
       hoverColor: "#C13584",
     },

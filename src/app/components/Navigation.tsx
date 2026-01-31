@@ -79,31 +79,34 @@ export function Navigation({ isSticky }: NavigationProps) {
 
   return (
     <div className={`${isSticky ? "fixed top-0 left-0 w-full" : "relative"} z-[110]`}>
-      <motion.nav className="bg-[#1f1f24] w-full shadow-lg">
-        <div className="h-[80px] md:h-[100px] px-4 md:px-8 flex items-center justify-between relative z-[130]">
-          {/* Logo */}
+      <motion.nav className="bg-[#1f1f24] w-full border-b border-white/5">
+        <div className="h-[90px] md:h-[110px] px-4 md:px-8 flex items-center justify-between relative z-[130]">
+          
+          {/* Logo Section - Large & Clear */}
           <motion.button
             onClick={() => scrollToSection("home")}
-            className="flex items-center gap-2 md:gap-3 cursor-pointer"
-            whileTap={{ scale: 0.98 }}
+            className="flex items-center gap-4 cursor-pointer group"
+            whileTap={{ scale: 0.95 }}
           >
             <img
               src={imgGenuineLogo}
-              alt="Genuine Auto Repair"
-              className="w-[60px] h-[60px] md:w-[104px] md:h-[104px] object-contain"
+              alt="Genuine Garage"
+              className="w-[70px] h-[70px] md:w-[100px] md:h-[100px] object-contain"
+              style={{ imageRendering: 'auto' }} 
             />
-            <div className="flex flex-col text-left">
-              <span className="font-['Bebas_Neue'] text-[#f0c93b] text-[18px] md:text-[22px] leading-tight uppercase">
+            
+            <div className="flex flex-col text-left border-l border-white/10 pl-4">
+              <span className="font-['Bebas_Neue'] text-[#f0c93b] text-[28px] md:text-[40px] leading-[0.85] tracking-tight uppercase">
                 GENUINE
               </span>
-              <span className="font-['Bebas_Neue'] text-[#b3adb4] text-[12px] md:text-[14px] uppercase">
-                AUTO REPAIR
+              <span className="font-['Bebas_Neue'] text-white text-[18px] md:text-[22px] tracking-[0.2em] uppercase mt-1">
+                GARAGE
               </span>
             </div>
           </motion.button>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-10">
             <div className="relative flex items-center gap-8">
               {sections.map((section) => (
                 <NavLink
@@ -116,30 +119,33 @@ export function Navigation({ isSticky }: NavigationProps) {
                 </NavLink>
               ))}
               <motion.div
-                className="absolute -bottom-2 h-[4px] bg-[#f0c93b] rounded-full"
+                className="absolute -bottom-2 h-[3px] bg-[#f0c93b] rounded-full"
                 animate={{ left: barStyle.left, width: barStyle.width }}
                 transition={{ type: "spring", stiffness: 350, damping: 30 }}
               />
             </div>
+
+            {/* Call Now - Solid button, no shadow highlight */}
             <motion.a
               href="tel:+971524895673"
-              className="bg-[#f0c93b] px-6 py-3 font-['Montserrat'] font-semibold text-black text-[16px] uppercase rounded-sm"
-              whileHover={{ scale: 1.05 }}
+              className="bg-[#f0c93b] px-8 py-4 font-['Montserrat'] font-black text-black text-[14px] uppercase rounded-sm"
+              whileHover={{ scale: 1.05, backgroundColor: "#ffda5c" }}
+              whileTap={{ scale: 0.98 }}
             >
               Call Now
             </motion.a>
           </div>
 
           {/* Mobile Controls */}
-          <div className="flex md:hidden items-center gap-4">
-            <a href="tel:+971524895673" className="bg-[#f0c93b] p-2 rounded-full active:scale-90">
-              <Phone size={20} className="text-black" />
+          <div className="flex lg:hidden items-center gap-5">
+            <a href="tel:+971524895673" className="bg-[#f0c93b] p-3 rounded-full active:scale-90">
+              <Phone size={20} className="text-black fill-current" />
             </a>
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)} 
               className="text-white p-1"
             >
-              {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
+              {isMenuOpen ? <X size={36} /> : <Menu size={36} />}
             </button>
           </div>
         </div>
@@ -148,28 +154,27 @@ export function Navigation({ isSticky }: NavigationProps) {
         <AnimatePresence>
           {isMenuOpen && (
             <>
-              {/* Semi-transparent backdrop to close menu when tapping outside */}
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setIsMenuOpen(false)}
-                className="fixed inset-0 bg-black/60 md:hidden z-[115]"
+                className="fixed inset-0 bg-black/80 lg:hidden z-[115] backdrop-blur-sm"
               />
               
               <motion.div
-                initial={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-full left-0 w-full bg-[#1f1f24] border-t border-white/5 shadow-2xl z-[120] md:hidden"
+                className="absolute top-full left-0 w-full bg-[#1a1a1e] border-t border-white/10 z-[120] lg:hidden"
               >
-                <nav className="flex flex-col p-6 gap-5">
+                <nav className="flex flex-col p-8 gap-6">
                   {sections.map((section) => (
                     <button
                       key={section}
                       onClick={() => scrollToSection(section)}
-                      className={`font-['Montserrat'] text-[18px] font-bold uppercase text-left py-2 ${
+                      className={`font-['Montserrat'] text-[24px] font-black uppercase text-left tracking-widest ${
                         activeSection === section ? "text-[#f0c93b]" : "text-white"
                       }`}
                     >
@@ -178,9 +183,9 @@ export function Navigation({ isSticky }: NavigationProps) {
                   ))}
                   <a 
                     href="tel:+971524895673" 
-                    className="mt-2 flex items-center justify-center gap-3 bg-[#f0c93b] text-black font-bold p-4 rounded-sm uppercase"
+                    className="mt-4 flex items-center justify-center gap-3 bg-[#f0c93b] text-black font-black p-5 rounded-sm uppercase"
                   >
-                    <Phone size={20} />
+                    <Phone size={20} className="fill-current" />
                     Call Now
                   </a>
                 </nav>
@@ -198,8 +203,8 @@ function NavLink({ id, children, onClick, active }: any) {
     <motion.button
       id={id}
       onClick={onClick}
-      className={`font-['Montserrat'] font-medium text-[16px] uppercase transition-colors ${
-        active ? "text-[#f0c93b]" : "text-[#b3adb4] hover:text-white"
+      className={`font-['Montserrat'] font-bold text-[16px] uppercase tracking-wide transition-all duration-300 ${
+        active ? "text-[#f0c93b]" : "text-[#d1d1d1] hover:text-white"
       }`}
     >
       {children}
