@@ -48,7 +48,7 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
         transition={{ duration: 0.6 }}
       >
         <span className="text-[#f0c93b]">CONTACT </span>
-        <span className="text-white">GENUINE AUTO REPAIR</span>
+        <span className="text-white">GENUINE GARAGE</span>
       </motion.h2>
 
       <motion.p

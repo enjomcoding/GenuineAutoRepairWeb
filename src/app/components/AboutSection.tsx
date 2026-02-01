@@ -28,7 +28,7 @@ export function AboutSection({ onCallClick }: AboutSectionProps) {
           transition={{ duration: 0.6 }}
         >
           <span className="text-[#f0c93b] block md:inline mr-3">ABOUT</span>
-          <span className="text-white">Genuine Auto Repair</span>
+          <span className="text-white">Genuine Garage</span>
         </motion.h2>
 
         <motion.p
@@ -63,7 +63,7 @@ export function AboutSection({ onCallClick }: AboutSectionProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Genuine Auto Repair is a full-service auto garage in Dubai,
+              Genuine Garage is a full-service auto garage in Dubai,
               offering diagnostics, repairs, detailing, and paint protection. We
               focus on honest pricing, skilled workmanship, and customer
               satisfaction.
@@ -112,7 +112,7 @@ export function AboutSection({ onCallClick }: AboutSectionProps) {
             >
               <img
                 src={imgAbout}
-                alt="Genuine Auto Repair Shop Team"
+                alt="Genuine Garage Shop Team"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
