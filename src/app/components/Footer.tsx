@@ -78,11 +78,11 @@ export function Footer() {
             </li>
             <li>
               <motion.a
-                href="mailto:info@genuinegarage.ae"
+                href="mailto:book@genuinegarage.ae"
                 className="font-['Montserrat'] font-light text-[#b3adb4] text-[15px] md:text-[14px] inline-block"
                 whileHover={{ color: "#f0c93b", x: 3 }}
               >
-                ✉️ info@genuinegarage.ae
+                ✉️ book@genuinegarage.ae
               </motion.a>
             </li>
             <li className="font-['Montserrat'] font-light text-[#b3adb4] text-[14px]">

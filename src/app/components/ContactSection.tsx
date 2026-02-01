@@ -70,7 +70,7 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
           <div className="space-y-8 md:space-y-10 mb-12">
             <ContactDetail icon={<LocationIcon />} label="Location" value="1 Street 1 - Umm Ramool - Dubai - UAE" delay={0} />
             <ContactDetail icon={<PhoneIcon />} label="Phone" value="052 489 5673" href="tel:0524895673" delay={0.1} />
-            <ContactDetail icon={<EmailIcon />} label="Email" value="info@genuinegarage.ae" href="mailto:info@genuinegarage.ae" delay={0.2} />
+            <ContactDetail icon={<EmailIcon />} label="Email" value="book@genuinegarage.ae" href="mailto:book@genuinegarage.ae" delay={0.2} />
           </div>
 
           <motion.button
