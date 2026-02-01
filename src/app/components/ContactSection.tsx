@@ -210,19 +210,43 @@ function InputField({ label, type = "text", value, onChange }: any) {
 }
 
 function SelectField({ label, value, onChange }: any) {
+  const services = [
+    "Pre-Sale Inspection",
+    "Inspection",
+    "Oil Change",
+    "Diagnostics",
+    "Auto Repair",
+    "Preventive Maintenance",
+    "Car Spa",
+    "Tinting",
+    "Paint Protection",
+    "Detailing",
+    "Other"
+  ];
+
   return (
     <div className="relative w-full">
       <select
-        value={value} onChange={onChange}
-        className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none appearance-none cursor-pointer focus:border-[#f0c93b] focus:ring-1 focus:ring-[#f0c93b]"
+        value={value}
+        onChange={onChange}
+        required
+        className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none appearance-none cursor-pointer focus:border-[#f0c93b] focus:ring-1 focus:ring-[#f0c93b] transition-all"
       >
-        <option value="" className="bg-[#1c1b17]">{label}</option>
-        {["Inspections", "Diagnostics", "Auto Repair", "Preventive Maintenance", "Car Wash", "Tinting", "Paint Protection", "Detailing"].map(item => (
-          <option key={item} value={item} className="bg-[#1c1b17]">{item}</option>
+        <option value="" disabled className="bg-[#1c1b17]">
+          {label}
+        </option>
+        {services.map((item) => (
+          <option key={item} value={item} className="bg-[#1c1b17]">
+            {item}
+          </option>
         ))}
       </select>
+      
+      {/* Custom Chevron Icon */}
       <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
-        <svg width="12" height="8" viewBox="0 0 17 9" fill="none"><path d="M1 1L8.5 8L16 1" stroke="white" strokeWidth="2" /></svg>
+        <svg width="12" height="8" viewBox="0 0 17 9" fill="none">
+          <path d="M1 1L8.5 8L16 1" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
       </div>
     </div>
   );

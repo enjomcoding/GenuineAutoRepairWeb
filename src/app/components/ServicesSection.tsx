@@ -27,7 +27,7 @@ export function ServicesSection({ onServiceClick, onCallClick }: ServicesSection
     { img: imgDiagnosis, title: "Diagnostics", desc: "Accurate diagnostics to pinpoint problems quickly and reliably." },
     { img: imgAutoRepair, title: "Auto Repair", desc: "Expert repair services for engines, brakes, suspension, and general mechanical issues." },
     { img: imgOilChange, title: "Preventive Maintenance", desc: "Routine maintenance services to keep your vehicle running smoothly." },
-    { img: imgWashing, title: "Car Wash & Care", desc: "Professional car washing and care for a spotless, fresh appearance." },
+    { img: imgWashing, title: "Car Spa & Care", desc: "Professional car washing and care for a spotless, fresh appearance." },
     { img: imgWindowTinting, title: "Window Tinting", desc: "High-quality window tinting for heat reduction and added privacy." },
     { img: imgPaintProtection, title: "Paint Protection", desc: "Protect your car's paint from scratches and environmental damage." },
     { img: imgDetailing, title: "Detailing", desc: "Deep interior and exterior detailing to restore your car's shine." },
