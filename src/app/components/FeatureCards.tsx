@@ -72,9 +72,8 @@ function FeatureCard({ image, title, description, delay }: FeatureCardProps) {
       <h3 className="font-['Bebas_Neue'] text-white text-[24px] md:text-[28px] text-center mb-2 leading-tight px-2 uppercase">
         {title.includes("Experienced") ? (
           <>
-            Experienced
-            <br className="hidden md:block" /> {/* Only break line on desktop if needed */}
-            <span className="md:ml-0 ml-1">Mechanics</span>
+            Experienced 
+            Mechanics
           </>
         ) : (
           title

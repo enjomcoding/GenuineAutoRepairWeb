@@ -19,7 +19,7 @@ export function Footer() {
             GENUINE
           </h3>
           <p className="font-['Bebas_Neue'] text-[#b3adb4] text-[20px] mb-4 uppercase tracking-wider">
-            AUTO REPAIR
+            GARAGE
           </p>
           <p className="font-['Montserrat'] font-light text-[#b3adb4] text-[14px] leading-relaxed max-w-[250px] mx-auto sm:mx-0">
             Your trusted partner for professional auto repair and maintenance
@@ -98,7 +98,7 @@ export function Footer() {
       {/* Bottom Section */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
         <p className="font-['Montserrat'] font-light text-[#b3adb4] text-[12px] md:text-[14px] order-2 md:order-1">
-          © 2024 Genuine Auto Repair. All rights reserved.
+          © 2024 Genuine Garage. All rights reserved.
         </p>
         <div className="flex gap-8 md:gap-6 order-1 md:order-2">
           <motion.a

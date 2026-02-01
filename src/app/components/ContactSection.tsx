@@ -11,6 +11,9 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
     fullName: "",
     email: "",
     phone: "",
+    vehicleBrand: "",
+    vehicleModel: "",
+    vehicleYear: "",
     service: initialService || "",
     message: "",
   });
@@ -25,6 +28,9 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
         fullName: "",
         email: "",
         phone: "",
+        vehicleBrand: "",
+        vehicleModel: "",
+        vehicleYear: "",
         service: "",
         message: "",
       });
@@ -64,7 +70,7 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            Get in Touch
+            Reach Us
           </motion.h3>
 
           <div className="space-y-8 md:space-y-10 mb-12">
@@ -96,48 +102,69 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            Contact Form
+            Request a Quote
           </motion.h3>
 
           <motion.form
             onSubmit={handleSubmit}
-            className="space-y-4 md:space-y-5 flex flex-col items-start"
+            className="space-y-6 flex flex-col items-start w-full max-w-[500px]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            <InputField label="Full name" value={formData.fullName} onChange={(e: any) => setFormData({ ...formData, fullName: e.target.value })} />
-            <InputField label="Email Address" type="email" value={formData.email} onChange={(e: any) => setFormData({ ...formData, email: e.target.value })} />
-            <InputField label="Phone Number" type="tel" value={formData.phone} onChange={(e: any) => setFormData({ ...formData, phone: e.target.value })} />
-            <SelectField label="Services Needed" value={formData.service} onChange={(e: any) => setFormData({ ...formData, service: e.target.value })} />
-            <TextAreaField label="Message" value={formData.message} onChange={(e: any) => setFormData({ ...formData, message: e.target.value })} />
+            {/* Group 1: Personal Details */}
+            <div className="w-full space-y-3">
+              <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[18px] tracking-wide uppercase">Contact Details</p>
+              <InputField label="Full name" value={formData.fullName} onChange={(e: any) => setFormData({ ...formData, fullName: e.target.value })} />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <InputField label="Email Address" type="email" value={formData.email} onChange={(e: any) => setFormData({ ...formData, email: e.target.value })} />
+                <InputField label="Phone Number" type="tel" value={formData.phone} onChange={(e: any) => setFormData({ ...formData, phone: e.target.value })} />
+              </div>
+            </div>
+            
+            {/* Group 2: Vehicle Information */}
+            <div className="w-full space-y-3">
+               <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[18px] tracking-wide uppercase">Vehicle Information</p>
+               <InputField label="Vehicle Brand (e.g. Mercedes, BMW)" value={formData.vehicleBrand} onChange={(e: any) => setFormData({ ...formData, vehicleBrand: e.target.value })} />
+               <div className="grid grid-cols-2 gap-3 w-full">
+                  <InputField label="Model" value={formData.vehicleModel} onChange={(e: any) => setFormData({ ...formData, vehicleModel: e.target.value })} />
+                  <InputField label="Year" type="text" value={formData.vehicleYear} onChange={(e: any) => setFormData({ ...formData, vehicleYear: e.target.value })} />
+               </div>
+            </div>
+
+            {/* Group 3: Service Details */}
+            <div className="w-full space-y-3">
+              <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[18px] tracking-wide uppercase">Service Details</p>
+              <SelectField label="Select Service" value={formData.service} onChange={(e: any) => setFormData({ ...formData, service: e.target.value })} />
+              <TextAreaField label="Describe the issue or service needed..." value={formData.message} onChange={(e: any) => setFormData({ ...formData, message: e.target.value })} />
+            </div>
 
             <motion.button
               type="submit"
-              className="bg-[#f0c93b] w-full md:w-[400px] py-5 md:py-6 font-['Montserrat'] font-black text-black text-[18px] md:text-[24px] cursor-pointer uppercase tracking-wider active:scale-95 transition-all shadow-lg mt-4"
-              whileHover={{ backgroundColor: "#ffd54f", scale: 1.02 }}
+              className="bg-[#f0c93b] w-full py-5 md:py-6 font-['Montserrat'] font-black text-black text-[18px] md:text-[24px] cursor-pointer uppercase tracking-wider active:scale-95 transition-all shadow-lg mt-2"
+              whileHover={{ backgroundColor: "#ffd54f", scale: 1.01 }}
             >
-              GET A QUICK QUOTE
+              SEND REQUEST
             </motion.button>
 
             {isSubmitted && (
-              <motion.p className="font-['Montserrat'] font-bold text-[#f0c93b] text-[16px] md:text-[18px] mt-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                Thank you! We'll contact you within working hours.
+              <motion.p className="font-['Montserrat'] font-bold text-[#f0c93b] text-[16px] md:text-[18px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                Message Sent! We'll be in touch shortly.
               </motion.p>
             )}
             
-            <p className="font-['Montserrat'] text-gray-500 text-[12px] md:text-[14px] mt-4 uppercase tracking-widest">
-              Service Hours: Mon - Sat, 9:00 AM - 8:00 PM
+            <p className="font-['Montserrat'] text-gray-500 text-[11px] md:text-[13px] uppercase tracking-widest pt-2">
+              Working Hours: Mon - Sat, 9:00 AM - 8:00 PM
             </p>
           </motion.form>
         </div>
       </div>
 
-      {/* Map Section - FIXED SRC */}
+      {/* Map Section */}
       <motion.div className="mt-20 md:mt-32" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
         <div className="w-full h-[300px] md:h-[500px] rounded-2xl border-2 border-[#f0c93b]/30 overflow-hidden relative shadow-2xl">
           <iframe
-            src="https://maps.google.com/maps?q=Genuine+Auto+Repair+Dubai+Umm+Ramool&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.643647185888!2d55.3678!3d25.2285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDEzJzQyLjYiTiA1NcKwMjInMDQuMSJF!5e0!3m2!1sen!2sae!4v1625000000000!5m2!1sen!2sae"
             width="100%" 
             height="100%" 
             style={{ border: 0, filter: "grayscale(1) invert(0.9) contrast(1.2)" }}
@@ -151,6 +178,7 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
   );
 }
 
+// Sub-components
 function ContactDetail({ icon, label, value, href, delay }: any) {
   const content = (
     <div className="flex items-center gap-5 md:gap-8">
@@ -176,17 +204,17 @@ function InputField({ label, type = "text", value, onChange }: any) {
   return (
     <input
       type={type} value={value} onChange={onChange} placeholder={label}
-      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full max-w-[500px] py-4 px-5 font-['Montserrat'] text-white text-[16px] md:text-[18px] outline-none focus:border-[#f0c93b] focus:ring-1 focus:ring-[#f0c93b] transition-all"
+      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none focus:border-[#f0c93b] focus:ring-1 focus:ring-[#f0c93b] transition-all placeholder:text-white/30"
     />
   );
 }
 
 function SelectField({ label, value, onChange }: any) {
   return (
-    <div className="relative w-full max-w-[500px]">
+    <div className="relative w-full">
       <select
         value={value} onChange={onChange}
-        className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] md:text-[18px] outline-none appearance-none cursor-pointer focus:border-[#f0c93b] focus:ring-1 focus:ring-[#f0c93b]"
+        className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none appearance-none cursor-pointer focus:border-[#f0c93b] focus:ring-1 focus:ring-[#f0c93b]"
       >
         <option value="" className="bg-[#1c1b17]">{label}</option>
         {["Inspections", "Diagnostics", "Auto Repair", "Preventive Maintenance", "Car Wash", "Tinting", "Paint Protection", "Detailing"].map(item => (
@@ -204,7 +232,7 @@ function TextAreaField({ label, value, onChange }: any) {
   return (
     <textarea
       value={value} onChange={onChange} placeholder={label} rows={4}
-      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full max-w-[500px] py-4 px-5 font-['Montserrat'] text-white text-[16px] md:text-[18px] outline-none resize-none focus:border-[#f0c93b] focus:ring-1 focus:ring-[#f0c93b] transition-all"
+      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none resize-none focus:border-[#f0c93b] focus:ring-1 focus:ring-[#f0c93b] transition-all placeholder:text-white/30"
     />
   );
 }
