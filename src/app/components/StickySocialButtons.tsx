@@ -1,10 +1,11 @@
-import { motion } from "motion/react";
+import { motion } from "framer-motion"; // Consistent with previous framer-motion imports
 import { Facebook, Instagram, MessageCircle } from "lucide-react";
 
 export function StickySocialButtons() {
   const socialLinks = [
     {
       name: "Facebook",
+      label: "Follow Genuine Garage on Facebook",
       icon: Facebook,
       href: "https://www.facebook.com/profile.php?id=100084750101762",
       color: "#1877F2",
@@ -12,6 +13,7 @@ export function StickySocialButtons() {
     },
     {
       name: "Instagram",
+      label: "Follow Genuine Garage on Instagram",
       icon: Instagram,
       href: "https://www.instagram.com/genuine.garage/",
       color: "#E4405F",
@@ -19,23 +21,28 @@ export function StickySocialButtons() {
     },
     {
       name: "WhatsApp",
+      label: "Chat with a Mechanic on WhatsApp",
       icon: MessageCircle,
       href: "https://wa.me/971524895673",
       color: "#25D366",
       hoverColor: "#1EBE57",
-      isPrimary: true, // Tag for special animation
+      isPrimary: true,
     },
   ];
 
   return (
-    <div className="fixed right-4 md:right-8 bottom-4 md:bottom-8 z-[200] flex flex-col gap-3 md:gap-4">
+    <aside 
+      className="fixed right-4 md:right-8 bottom-4 md:bottom-8 z-[200] flex flex-col gap-3 md:gap-4"
+      aria-label="Social Media Links"
+    >
       {socialLinks.map((social, index) => (
         <motion.a
           key={social.name}
           href={social.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="relative w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-[0_4px_15px_rgba(0,0,0,0.3)] cursor-pointer"
+          aria-label={social.label}
+          className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-[0_8px_20px_rgba(0,0,0,0.4)] cursor-pointer border border-white/10"
           style={{ backgroundColor: social.color }}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -47,36 +54,39 @@ export function StickySocialButtons() {
             damping: 20 
           }}
           whileHover={{
-            scale: 1.15,
+            scale: 1.1,
             backgroundColor: social.hoverColor,
-            boxShadow: "0 0 25px rgba(240, 201, 59, 0.2)",
+            boxShadow: "0 0 30px rgba(0,0,0,0.5)",
           }}
           whileTap={{ scale: 0.9 }}
         >
-          {/* Subtle Pulse effect for WhatsApp */}
+          {/* SEO Text: Only visible to screen readers */}
+          <span className="sr-only">{social.name}</span>
+
+          {/* Logic for WhatsApp Pulse - Visual Attention Driver */}
           {social.isPrimary && (
             <motion.span
               className="absolute inset-0 rounded-full bg-[#25D366] -z-10"
               animate={{ 
                 scale: [1, 1.4, 1],
-                opacity: [0.5, 0, 0.5] 
+                opacity: [0.6, 0, 0.6] 
               }}
               transition={{
-                duration: 2,
+                duration: 2.5,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
             />
           )}
           
-          <social.icon className="w-6 h-6 md:w-7 md:h-7 text-white" />
+          <social.icon className="w-5 h-5 md:w-6 md:h-6 text-white" strokeWidth={2.5} />
           
-          {/* Tooltip for Desktop only */}
-          <span className="absolute right-full mr-3 px-2 py-1 bg-black/80 text-white text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity hidden md:block uppercase tracking-tighter">
+          {/* Tooltip: Optimized for the Garage Brand */}
+          <span className="absolute right-full mr-4 px-3 py-1.5 bg-[#1c1b17] border border-[#f0c93b]/30 text-[#f0c93b] text-[10px] font-bold rounded-sm opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none hidden md:block uppercase tracking-[0.1em] whitespace-nowrap shadow-xl">
             {social.name}
           </span>
         </motion.a>
       ))}
-    </div>
+    </aside>
   );
 }

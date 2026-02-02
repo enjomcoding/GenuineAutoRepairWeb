@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { useState } from "react";
 
 interface ContactSectionProps {
@@ -19,26 +19,22 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const springTransition = { type: "spring", stiffness: 400, damping: 25 };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        vehicleBrand: "",
-        vehicleModel: "",
-        vehicleYear: "",
-        service: "",
-        message: "",
+        fullName: "", email: "", phone: "", vehicleBrand: "",
+        vehicleModel: "", vehicleYear: "", service: "", message: "",
       });
     }, 3000);
   };
 
   return (
-    <div className="relative w-full py-12 md:py-24 px-5 md:px-[73px] overflow-hidden bg-[#0a0a0a]">
+    <section id="contact" className="relative w-full py-12 md:py-24 px-5 md:px-[73px] overflow-hidden bg-[#0a0a0a]">
       {/* Section Title */}
       <motion.h2
         className="font-['Bebas_Neue'] text-[42px] sm:text-[48px] md:text-[100px] mb-4 tracking-tight uppercase leading-[1.1]"
@@ -79,19 +75,23 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
             <ContactDetail icon={<EmailIcon />} label="Email" value="book@genuinegarage.ae" href="mailto:book@genuinegarage.ae" delay={0.2} />
           </div>
 
-          <motion.button
-            onClick={(e) => { e.preventDefault(); onCallClick(); }}
-            className="flex items-center justify-center bg-[#f0c93b] w-full md:w-[400px] py-5 md:py-6 gap-4 cursor-pointer active:scale-95 transition-all shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ backgroundColor: "#ffd54f", scale: 1.02 }}
+          <motion.a
+            href="tel:+971524895673"
+            onClick={(e) => onCallClick()}
+            className="flex items-center justify-center bg-[#f0c93b] w-full md:w-[400px] py-5 md:py-6 gap-4 cursor-pointer rounded-none group border border-[#f0c93b] shadow-lg shadow-black/20"
+            whileHover="hover"
+            variants={{
+              hover: { backgroundColor: "#000000", scale: 1.02, transition: springTransition }
+            }}
+            whileTap={{ scale: 0.98 }}
           >
-            <CallIcon className="w-6 h-6 md:w-8 md:h-8" />
-            <span className="font-['Montserrat'] font-black text-black text-[18px] md:text-[24px] uppercase tracking-wider">
+            <motion.div variants={{ hover: { y: -5, rotate: [0, -10, 10, -10, 10, 0] } }} transition={{ duration: 0.4 }}>
+              <CallIcon className="w-6 h-6 md:w-8 md:h-8 text-black group-hover:text-[#f0c93b] fill-current transition-colors duration-300" />
+            </motion.div>
+            <span className="font-['Montserrat'] font-black text-black group-hover:text-[#f0c93b] text-[18px] md:text-[24px] uppercase tracking-wider transition-colors duration-300">
               CALL NOW
             </span>
-          </motion.button>
+          </motion.a>
         </div>
 
         {/* Right Side - Contact Form */}
@@ -112,7 +112,6 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            {/* Group 1: Personal Details */}
             <div className="w-full space-y-3">
               <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[18px] tracking-wide uppercase">Contact Details</p>
               <InputField label="Full name" value={formData.fullName} onChange={(e: any) => setFormData({ ...formData, fullName: e.target.value })} />
@@ -122,7 +121,6 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
               </div>
             </div>
             
-            {/* Group 2: Vehicle Information */}
             <div className="w-full space-y-3">
                <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[18px] tracking-wide uppercase">Vehicle Information</p>
                <InputField label="Vehicle Brand (e.g. Mercedes, BMW)" value={formData.vehicleBrand} onChange={(e: any) => setFormData({ ...formData, vehicleBrand: e.target.value })} />
@@ -132,7 +130,6 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
                </div>
             </div>
 
-            {/* Group 3: Service Details */}
             <div className="w-full space-y-3">
               <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[18px] tracking-wide uppercase">Service Details</p>
               <SelectField label="Select Service" value={formData.service} onChange={(e: any) => setFormData({ ...formData, service: e.target.value })} />
@@ -141,8 +138,12 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
 
             <motion.button
               type="submit"
-              className="bg-[#f0c93b] w-full py-5 md:py-6 font-['Montserrat'] font-black text-black text-[18px] md:text-[24px] cursor-pointer uppercase tracking-wider active:scale-95 transition-all shadow-lg mt-2"
-              whileHover={{ backgroundColor: "#ffd54f", scale: 1.01 }}
+              className="bg-[#f0c93b] w-full py-5 md:py-6 font-['Montserrat'] font-black text-black text-[18px] md:text-[24px] cursor-pointer uppercase tracking-wider border border-[#f0c93b] shadow-lg mt-2"
+              whileHover="hover"
+              variants={{
+                hover: { backgroundColor: "#000000", color: "#f0c93b", scale: 1.01, transition: springTransition }
+              }}
+              whileTap={{ scale: 0.98 }}
             >
               SEND REQUEST
             </motion.button>
@@ -152,44 +153,37 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
                 Message Sent! We'll be in touch shortly.
               </motion.p>
             )}
-            
-            <p className="font-['Montserrat'] text-gray-500 text-[11px] md:text-[13px] uppercase tracking-widest pt-2">
-              Working Hours: Mon - Sat, 9:00 AM - 8:00 PM
-            </p>
           </motion.form>
         </div>
       </div>
 
-      {/* Map Section */}
+      {/* FIXED Map Section - Accurate Embed URL */}
       <motion.div className="mt-20 md:mt-32" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
         <div className="w-full h-[300px] md:h-[500px] rounded-2xl border-2 border-[#f0c93b]/30 overflow-hidden relative shadow-2xl">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.643647185888!2d55.3678!3d25.2285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDEzJzQyLjYiTiA1NcKwMjInMDQuMSJF!5e0!3m2!1sen!2sae!4v1625000000000!5m2!1sen!2sae"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.435775791782!2d55.3520299!3d25.2296107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5d305a0adebf%3A0xb484371531874cb5!2sGenuine%20Auto%20General%20Repairing!5e0!3m2!1sen!2sae!4v1710000000000!5m2!1sen!2sae"
             width="100%" 
             height="100%" 
             style={{ border: 0, filter: "grayscale(1) invert(0.9) contrast(1.2)" }}
             allowFullScreen 
             loading="lazy" 
-            title="Location"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Genuine Auto General Repairing Location"
           />
         </div>
       </motion.div>
-    </div>
+    </section>
   );
 }
 
-// Sub-components
+// Sub-components...
 function ContactDetail({ icon, label, value, href, delay }: any) {
   const content = (
-    <div className="flex items-center gap-5 md:gap-8">
-      <div className="w-[40px] md:w-[60px] flex-shrink-0 text-[#f0c93b]">{icon}</div>
+    <div className="flex items-center gap-5 md:gap-8 group">
+      <div className="w-[40px] md:w-[60px] flex-shrink-0 text-[#f0c93b] transition-transform group-hover:scale-110">{icon}</div>
       <div>
-        <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[20px] md:text-[28px] mb-0.5 uppercase tracking-wide">
-          {label}
-        </p>
-        <p className="font-['Montserrat'] font-medium text-white/90 text-[14px] md:text-[18px]">
-          {value}
-        </p>
+        <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[20px] md:text-[28px] mb-0.5 uppercase tracking-wide">{label}</p>
+        <p className="font-['Montserrat'] font-medium text-white/90 text-[14px] md:text-[18px]">{value}</p>
       </div>
     </div>
   );
@@ -203,50 +197,25 @@ function ContactDetail({ icon, label, value, href, delay }: any) {
 function InputField({ label, type = "text", value, onChange }: any) {
   return (
     <input
-      type={type} value={value} onChange={onChange} placeholder={label}
-      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none focus:border-[#f0c93b] focus:ring-1 focus:ring-[#f0c93b] transition-all placeholder:text-white/30"
+      type={type} value={value} onChange={onChange} placeholder={label} aria-label={label}
+      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none focus:border-[#f0c93b] transition-all"
     />
   );
 }
 
 function SelectField({ label, value, onChange }: any) {
-  const services = [
-    "Pre-Sale Inspection",
-    "Inspection",
-    "Oil Change",
-    "Diagnostics",
-    "Auto Repair",
-    "Preventive Maintenance",
-    "Car Spa",
-    "Tinting",
-    "Paint Protection",
-    "Detailing",
-    "Other"
-  ];
-
+  const services = ["Pre-Sale Inspection", "Inspection", "Oil Change", "Diagnostics", "Auto Repair", "Preventive Maintenance", "Car Spa", "Tinting", "Paint Protection", "Detailing", "Other"];
   return (
     <div className="relative w-full">
       <select
-        value={value}
-        onChange={onChange}
-        required
-        className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none appearance-none cursor-pointer focus:border-[#f0c93b] focus:ring-1 focus:ring-[#f0c93b] transition-all"
+        value={value} onChange={onChange} required aria-label={label}
+        className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none appearance-none cursor-pointer focus:border-[#f0c93b] transition-all"
       >
-        <option value="" disabled className="bg-[#1c1b17]">
-          {label}
-        </option>
-        {services.map((item) => (
-          <option key={item} value={item} className="bg-[#1c1b17]">
-            {item}
-          </option>
-        ))}
+        <option value="" disabled className="bg-[#1c1b17]">{label}</option>
+        {services.map((item) => (<option key={item} value={item}>{item}</option>))}
       </select>
-      
-      {/* Custom Chevron Icon */}
       <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
-        <svg width="12" height="8" viewBox="0 0 17 9" fill="none">
-          <path d="M1 1L8.5 8L16 1" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-        </svg>
+        <svg width="12" height="8" viewBox="0 0 17 9" fill="none"><path d="M1 1L8.5 8L16 1" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
       </div>
     </div>
   );
@@ -255,8 +224,8 @@ function SelectField({ label, value, onChange }: any) {
 function TextAreaField({ label, value, onChange }: any) {
   return (
     <textarea
-      value={value} onChange={onChange} placeholder={label} rows={4}
-      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none resize-none focus:border-[#f0c93b] focus:ring-1 focus:ring-[#f0c93b] transition-all placeholder:text-white/30"
+      value={value} onChange={onChange} placeholder={label} rows={4} aria-label={label}
+      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none focus:border-[#f0c93b] transition-all"
     />
   );
 }

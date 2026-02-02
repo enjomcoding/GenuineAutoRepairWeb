@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
+import { MessageCircle, Phone } from "lucide-react";
 import imgInspect from "@/assets/imgInspect.png";
 import imgDiagnosis from "@/assets/imgDiagnosis.png";
 import imgAutoRepair from "@/assets/imgAutoRepair.png";
@@ -14,11 +15,47 @@ interface ServicesSectionProps {
   onCallClick: () => void;
 }
 
+interface ServiceCardProps {
+  image: string;
+  title: string;
+  description: string;
+  onClick: () => void;
+  delay: number;
+}
+
 export function ServicesSection({ onServiceClick, onCallClick }: ServicesSectionProps) {
+  const WHATSAPP_URL = "https://wa.me/971524895673";
+  const springTransition = { type: "spring", stiffness: 400, damping: 25 };
+
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact");
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Shared Icon Animation Variants (Matching Hero)
+  const iconVariants = {
+    phone: {
+      hover: { 
+        y: -5, 
+        rotate: [0, -10, 10, -10, 10, 0],
+        transition: { duration: 0.4 } 
+      }
+    },
+    message: {
+      hover: { 
+        y: -8, 
+        scale: 1.1,
+        transition: { type: "spring", stiffness: 400, damping: 10 } 
+      }
+    },
+    whatsapp: {
+      hover: { 
+        scale: 1.2, 
+        rotate: 8,
+        transition: { type: "spring", stiffness: 300 } 
+      }
     }
   };
 
@@ -36,20 +73,19 @@ export function ServicesSection({ onServiceClick, onCallClick }: ServicesSection
   ];
 
   return (
-    <div id="services" className="relative w-full py-16 md:py-24">
-      {/* Background Image */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <section id="services" className="relative w-full py-16 md:py-24 bg-black overflow-hidden">
+      {/* Background Image - Optimized for SEO */}
+      <div className="absolute inset-0 pointer-events-none">
         <img
           src={imgBgServices}
-          alt=""
+          alt="Genuine Garage Dubai - Professional Auto Service Center"
           className="w-full h-full object-cover opacity-10 md:opacity-20"
+          loading="lazy"
         />
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent"
-        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black" />
       </div>
 
-      <div className="relative z-10 px-4 md:px-[56px]">
+      <div className="relative z-10 px-4 md:px-[56px] max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.h2
           className="font-['Bebas_Neue'] text-[40px] md:text-[60px] text-center text-white mb-4 uppercase leading-none"
@@ -71,7 +107,7 @@ export function ServicesSection({ onServiceClick, onCallClick }: ServicesSection
           Professional car repair and maintenance services in Dubai
         </motion.p>
 
-        {/* Services Grid */}
+        {/* Services Grid (10 Items) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12 md:mb-16">
           {services.map((service, index) => (
             <ServiceCard
@@ -80,13 +116,13 @@ export function ServicesSection({ onServiceClick, onCallClick }: ServicesSection
               title={service.title}
               description={service.desc}
               onClick={() => onServiceClick(service.title)}
-              delay={(index % 3) * 0.1} // Staggered only per row
+              delay={(index % 3) * 0.1}
             />
           ))}
         </div>
 
-        {/* Call to Actions */}
-        <div className="text-center">
+        {/* Call to Actions - Hero Consistent Design */}
+        <div className="text-center mt-12">
           <motion.h3
             className="font-['Bebas_Neue'] text-[#fff2c3] text-[24px] md:text-[40px] mb-8 uppercase px-2"
             initial={{ opacity: 0 }}
@@ -97,66 +133,83 @@ export function ServicesSection({ onServiceClick, onCallClick }: ServicesSection
           </motion.h3>
 
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 px-4">
+            
+            {/* Call Now - Yellow to Black Inversion */}
+            <motion.a
+              href="tel:+971524895673"
+              onClick={onCallClick}
+              className="bg-[#f0c93b] w-full sm:w-[280px] md:w-[320px] h-[80px] md:h-[100px] flex items-center justify-center gap-3 cursor-pointer rounded-none group border border-[#f0c93b]"
+              whileHover="hover"
+              animate="initial"
+              variants={{
+                hover: { backgroundColor: "#000000", scale: 1.02, transition: springTransition }
+              }}
+              whileTap={{ scale: 0.98 }}
+              aria-label="Call Genuine Garage"
+            >
+              <motion.div variants={iconVariants.phone}>
+                <Phone className="w-7 h-7 text-black group-hover:text-[#f0c93b] transition-colors duration-300 fill-current" />
+              </motion.div>
+              <span className="font-['Montserrat'] font-black text-black group-hover:text-[#f0c93b] text-[20px] md:text-[28px] uppercase transition-colors duration-300">
+                CALL NOW
+              </span>
+            </motion.a>
+
+            {/* Get a Quote - Ghost to Yellow Inversion */}
             <motion.button
               onClick={scrollToContact}
-              className="bg-[#f0c93b] w-full sm:w-[280px] md:w-[320px] py-6 md:h-[100px] font-['Montserrat'] font-bold text-[20px] md:text-[32px] text-black uppercase rounded-sm shadow-lg"
-              whileHover={{ scale: 1.02, backgroundColor: "#ffd54f" }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Get a quote
-            </motion.button>
-
-            <motion.button
-              onClick={(e) => {
-                e.preventDefault();
-                onCallClick();
+              className="bg-black/40 border-[#f0c93b] border-[2px] w-full sm:w-[280px] md:w-[320px] h-[80px] md:h-[100px] flex items-center justify-center gap-3 cursor-pointer rounded-none group backdrop-blur-sm"
+              whileHover="hover"
+              animate="initial"
+              variants={{
+                hover: { backgroundColor: "#f0c93b", scale: 1.02, transition: springTransition }
               }}
-              className="bg-black/40 border-[#f0c93b] border-[2px] w-full sm:w-[280px] md:w-[320px] py-6 md:h-[100px] font-['Montserrat'] font-bold text-[#f0c93b] text-[20px] md:text-[32px] uppercase rounded-sm backdrop-blur-sm"
-              whileHover={{ scale: 1.02, backgroundColor: "rgba(28,27,23,0.9)" }}
               whileTap={{ scale: 0.98 }}
+              aria-label="Request a repair quote"
             >
-              Call us now
+              <motion.div variants={iconVariants.message}>
+                <MessageCircle className="w-7 h-7 text-[#f0c93b] group-hover:text-black transition-colors duration-300" />
+              </motion.div>
+              <span className="font-['Montserrat'] font-bold text-[#f0c93b] group-hover:text-black text-[20px] md:text-[28px] uppercase transition-colors duration-300">
+                Get a QUOTE
+              </span>
             </motion.button>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
 function ServiceCard({ image, title, description, onClick, delay }: ServiceCardProps) {
   return (
-    <motion.div
-      className="bg-[#1c1b17] min-h-[260px] md:h-[320px] p-6 cursor-pointer flex flex-col items-center justify-center border border-white/5 hover:border-[#f0c93b]/50 transition-colors"
+    <motion.article
+      className="bg-[#1c1b17] min-h-[260px] md:h-[320px] p-6 cursor-pointer flex flex-col items-center justify-center border border-white/5 hover:border-[#f0c93b]/50 transition-colors group"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-20px" }}
       transition={{ duration: 0.4, delay }}
       onClick={onClick}
     >
-      <div className="w-full h-[120px] md:h-[150px] mb-4 flex items-center justify-center">
+      <motion.div 
+        className="w-full h-[120px] md:h-[150px] mb-4 flex items-center justify-center"
+        whileHover={{ y: -10, scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
         <img 
           src={image} 
-          alt={title} 
-          className="max-w-[180px] md:max-w-[220px] max-h-full object-contain filter drop-shadow-xl group-hover:scale-110 transition-transform duration-300" 
+          alt={`${title} Service - Genuine Garage Dubai`} 
+          className="max-w-[180px] md:max-w-[220px] max-h-full object-contain filter drop-shadow-xl transition-transform duration-300" 
         />
-      </div>
+      </motion.div>
 
-      <h3 className="font-['Bebas_Neue'] text-[#fff2c3] text-[24px] md:text-[28px] text-center mb-2 uppercase tracking-wide">
+      <h3 className="font-['Bebas_Neue'] text-[#fff2c3] text-[24px] md:text-[28px] text-center mb-2 uppercase tracking-wide group-hover:text-[#f0c93b] transition-colors">
         {title}
       </h3>
 
       <p className="font-['Montserrat'] font-light text-[#b3adb4] text-[13px] md:text-[14px] text-center leading-snug">
         {description}
       </p>
-    </motion.div>
+    </motion.article>
   );
-}
-
-interface ServiceCardProps {
-  image: string;
-  title: string;
-  description: string;
-  onClick: () => void;
-  delay: number;
 }

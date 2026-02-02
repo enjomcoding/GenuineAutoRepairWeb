@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { MessageCircle, Phone } from "lucide-react";
 import imgHeroBg from "@/assets/imgHeroBg.png";
 
@@ -14,29 +14,54 @@ export function HeroSection({ onCallClick }: HeroSectionProps) {
     }
   };
 
-  const handleWhatsApp = () => {
-    window.open("https://wa.me/971524895673", "_blank");
+  const WHATSAPP_URL = "https://wa.me/971524895673";
+
+  // Animation variants for the icons
+  const iconVariants = {
+    phone: {
+      hover: { 
+        y: -5, 
+        rotate: [0, -10, 10, -10, 10, 0],
+        transition: { duration: 0.4 } 
+      }
+    },
+    message: {
+      hover: { 
+        y: -8, 
+        scale: 1.1,
+        transition: { type: "spring", stiffness: 400, damping: 10 } 
+      }
+    },
+    whatsapp: {
+      hover: { 
+        scale: 1.2, 
+        rotate: 8,
+        transition: { type: "spring", stiffness: 300 } 
+      }
+    }
   };
 
+  const springTransition = { type: "spring", stiffness: 400, damping: 25 };
+
   return (
-    <div className="relative w-full h-[650px] md:h-[950px] overflow-hidden">
-      {/* Background Image */}
+    <section className="relative w-full h-[650px] md:h-[950px] overflow-hidden bg-black">
+      {/* Background Image - Descriptive alt for Local SEO */}
       <div className="absolute inset-0">
         <img
           src={imgHeroBg}
-          alt="Auto Repair Background"
+          alt="Genuine Garage Dubai - Professional Car Repair and Maintenance Workshop"
           className="w-full h-full object-cover object-right md:object-center"
+          loading="eager"
         />
         <div
           className="absolute inset-0"
           style={{
-            background:
-              "linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 100%)",
+            background: "linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 100%)",
           }}
         />
       </div>
 
-      {/* Content */}
+      {/* Content Area */}
       <div className="relative z-10 px-5 md:px-[109px] pt-[100px] md:pt-[180px]">
         {/* Tagline */}
         <motion.p
@@ -48,7 +73,7 @@ export function HeroSection({ onCallClick }: HeroSectionProps) {
           Fast, Smart, Reliable. All in one roof.
         </motion.p>
 
-        {/* Main Headline */}
+        {/* Main Headline - H1 is the most important SEO tag */}
         <motion.h1
           className="font-['Bebas_Neue'] text-[48px] md:text-[96px] leading-[1] md:leading-[102px] tracking-tight md:tracking-[-2.88px] mb-6 md:mb-8 uppercase"
           initial={{ opacity: 0, y: 20 }}
@@ -84,43 +109,72 @@ export function HeroSection({ onCallClick }: HeroSectionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          {/* Call Now Button */}
-          <motion.button
-            onClick={(e) => { e.preventDefault(); onCallClick(); }}
-            className="bg-[#f0c93b] w-full md:w-[240px] h-[60px] md:h-[81px] flex items-center justify-center gap-3 cursor-pointer shadow-lg active:scale-95 transition-transform"
-            whileHover={{ backgroundColor: "#ffd54f" }}
+          {/* Call Now - Lifts and Shakes Icon */}
+          <motion.a
+            href="tel:+971524895673"
+            onClick={onCallClick}
+            className="bg-[#f0c93b] w-full md:w-[240px] h-[60px] md:h-[81px] flex items-center justify-center gap-3 cursor-pointer rounded-none group border border-[#f0c93b]"
+            whileHover="hover"
+            animate="initial"
+            variants={{
+                hover: { backgroundColor: "#000000", scale: 1.03, transition: springTransition }
+            }}
+            whileTap={{ scale: 0.98 }}
+            title="Call Genuine Garage Now"
+            aria-label="Call Genuine Garage"
           >
-            <Phone className="w-6 h-6 text-black" />
-            <span className="font-['Montserrat'] font-bold text-black text-[18px] md:text-[24px] uppercase">
+            <motion.div variants={iconVariants.phone}>
+                <Phone className="w-6 h-6 text-black group-hover:text-[#f0c93b] transition-colors duration-300 fill-current" />
+            </motion.div>
+            <span className="font-['Montserrat'] font-black text-black group-hover:text-[#f0c93b] text-[18px] md:text-[24px] uppercase transition-colors duration-300">
               CALL NOW
             </span>
-          </motion.button>
+          </motion.a>
 
-          {/* Get a Quote Button */}
+          {/* Get a Quote - Icon Bounces Up */}
           <motion.button
             onClick={scrollToContact}
-            className="bg-black/60 backdrop-blur-sm border border-[#f0c93b] w-full md:w-[240px] h-[60px] md:h-[81px] flex items-center justify-center gap-3 cursor-pointer active:scale-95 transition-transform"
-            whileHover={{ backgroundColor: "rgba(0,0,0,0.8)" }}
+            className="bg-black/60 backdrop-blur-sm border border-[#f0c93b] w-full md:w-[240px] h-[60px] md:h-[81px] flex items-center justify-center gap-3 cursor-pointer rounded-none group"
+            whileHover="hover"
+            animate="initial"
+            variants={{
+                hover: { backgroundColor: "#f0c93b", scale: 1.03, transition: springTransition }
+            }}
+            whileTap={{ scale: 0.98 }}
+            aria-label="Request a car repair quote"
           >
-            <MessageCircle className="w-6 h-6 text-[#f0c93b]" />
-            <span className="font-['Montserrat'] font-bold text-[#f0c93b] text-[18px] md:text-[26px] uppercase">
+            <motion.div variants={iconVariants.message}>
+                <MessageCircle className="w-6 h-6 text-[#f0c93b] group-hover:text-black transition-colors duration-300" />
+            </motion.div>
+            <span className="font-['Montserrat'] font-bold text-[#f0c93b] group-hover:text-black text-[18px] md:text-[26px] uppercase transition-colors duration-300">
               Get a QUOTE
             </span>
           </motion.button>
 
-          {/* WhatsApp Button */}
-          <motion.button
-            onClick={handleWhatsApp}
-            className="bg-[#25D366] w-full md:w-[240px] h-[60px] md:h-[81px] flex items-center justify-center gap-3 cursor-pointer shadow-lg active:scale-95 transition-transform"
-            whileHover={{ backgroundColor: "#1EBE57" }}
+          {/* WhatsApp - Icon Tilts and Scales */}
+          <motion.a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#25D366] w-full md:w-[240px] h-[60px] md:h-[81px] flex items-center justify-center gap-3 cursor-pointer rounded-none"
+            whileHover="hover"
+            animate="initial"
+            variants={{
+                hover: { backgroundColor: "#39e67a", scale: 1.03, transition: springTransition }
+            }}
+            whileTap={{ scale: 0.98 }}
+            title="Chat with us on WhatsApp"
+            aria-label="Contact via WhatsApp"
           >
-            <MessageCircle className="w-6 h-6 md:w-7 md:h-7 text-white fill-current" />
-            <span className="font-['Montserrat'] font-bold text-white text-[18px] md:text-[24px] uppercase">
+            <motion.div variants={iconVariants.whatsapp}>
+                <MessageCircle className="w-6 h-6 md:w-7 md:h-7 text-white fill-current" />
+            </motion.div>
+            <span className="font-['Montserrat'] font-black text-white text-[18px] md:text-[24px] uppercase">
               WhatsApp
             </span>
-          </motion.button>
+          </motion.a>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 }
