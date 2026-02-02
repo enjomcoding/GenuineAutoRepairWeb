@@ -20,7 +20,6 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Update these with your real links
   const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Genuine+Garage+Umm+Ramool+Dubai"; 
   const GARAGE_PHONE = "971524895673";
 
@@ -89,7 +88,8 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
 
   return (
     <section id="contact" className="relative w-full py-12 md:py-24 px-5 md:px-[73px] bg-[#0a0a0a]">
-      <Toaster position="bottom-right" reverseOrder={false} />
+      {/* Position changed to top-center */}
+      <Toaster position="top-center" reverseOrder={false} />
       
       <div className="max-w-7xl mx-auto">
         <header className="mb-12 md:mb-20">
@@ -176,7 +176,6 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
           </div>
         </div>
 
-        {/* --- MAP SECTION (Now inside the container) --- */}
         <motion.div
           className="flex flex-col w-full"
           initial={{ opacity: 0, y: 30 }}
@@ -220,8 +219,6 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
     </section>
   );
 }
-
-// --- SUB-COMPONENTS ---
 
 function ContactDetail({ label, value, href }: any) {
   return (
