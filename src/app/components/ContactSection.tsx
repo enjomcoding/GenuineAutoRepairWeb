@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 interface ContactSectionProps {
   initialService?: string;
@@ -10,7 +11,7 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    phone: "", 
+    phone: "",
     vehicleBrand: "",
     vehicleModel: "",
     vehicleYear: "",
@@ -19,45 +20,63 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Updated strictly with your provided link for external directions
-  const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Genuine+Garage+Umm+Ramool+Dubai";
-  
-  // CORRECTED EMBED URL: Uses the embed endpoint to resolve the iframe error
-  const EMBED_URL = "https://maps.google.com3";
-
+  // Update these with your real links
+  const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Genuine+Garage+Umm+Ramool+Dubai"; 
   const GARAGE_PHONE = "971524895673";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const currentYear = new Date().getFullYear();
     const yearNum = parseInt(formData.vehicleYear);
-    
+
     if (isNaN(yearNum) || yearNum < 1900 || yearNum > currentYear + 1) {
-      alert(`Please enter a valid vehicle year (1900 - ${currentYear + 1})`);
+      toast.error(`Please enter a valid vehicle year (1900 - ${currentYear + 1})`, {
+        style: {
+          borderRadius: '10px',
+          background: '#1c1b17',
+          color: '#fff',
+          border: '1px solid #f0c93b',
+        },
+      });
       return;
     }
-    
-    const fullNumber = `+971${formData.phone.trim()}`;
+
+    const fullNumber = `+971 ${formData.phone.trim()}`;
     const messageArray = [
-      "NEW SERVICE INQUIRY - GENUINE GARAGE",
+      "*🛠️ NEW SERVICE INQUIRY - GENUINE GARAGE*",
+      "________________________________",
       "",
-      `Customer Name: ${formData.fullName}`,
-      `Phone Number: ${fullNumber}`,
-      `Email: ${formData.email}`,
+      `👤 *Customer:* ${formData.fullName}`,
+      `📞 *Phone:* ${fullNumber}`,
+      `📧 *Email:* ${formData.email}`,
       "",
-      `Vehicle: ${formData.vehicleBrand} ${formData.vehicleModel}`,
-      `Year: ${formData.vehicleYear}`,
+      "🚗 *VEHICLE DETAILS*",
+      `*Brand/Model:* ${formData.vehicleBrand} ${formData.vehicleModel}`,
+      `*Year:* ${formData.vehicleYear}`,
       "",
-      `Service Requested: ${formData.service}`,
-      `Message: ${formData.message || "None"}`,
+      "💼 *SERVICE REQUESTED*",
+      `*Type:* ${formData.service}`,
+      `*Issue/Notes:* ${formData.message || "No additional notes provided."}`,
       "",
+      "________________________________",
       "Please provide a quotation for this request."
     ];
 
     const finalMessage = messageArray.join("\n");
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${GARAGE_PHONE}&text=${encodeURIComponent(finalMessage)}`;
-    
+
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+
+    toast.success("Redirecting to WhatsApp...", {
+      icon: '🚀',
+      style: {
+        borderRadius: '10px',
+        background: '#1c1b17',
+        color: '#fff',
+        border: '1px solid #f0c93b',
+      },
+    });
+
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
@@ -70,6 +89,8 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
 
   return (
     <section id="contact" className="relative w-full py-12 md:py-24 px-5 md:px-[73px] bg-[#0a0a0a]">
+      <Toaster position="bottom-right" reverseOrder={false} />
+      
       <div className="max-w-7xl mx-auto">
         <header className="mb-12 md:mb-20">
           <motion.h2
@@ -83,16 +104,13 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 mb-16 md:mb-24">
-          
           <div className="flex flex-col justify-start">
             <h3 className="font-['Bebas_Neue'] text-white text-[32px] md:text-[56px] mb-8 uppercase">Reach Us</h3>
-            
             <div className="flex flex-col gap-y-10 mb-12">
               <ContactDetail label="Location" value="1 Street 1 - Umm Ramool - Dubai" href={GOOGLE_MAPS_URL} />
               <ContactDetail label="Phone" value="052 489 5673" href={`tel:${GARAGE_PHONE}`} />
               <ContactDetail label="Email" value="book@genuinegarage.ae" href="mailto:book@genuinegarage.ae" />
             </div>
-            
             <motion.button
               onClick={onCallClick}
               className="bg-[#f0c93b] w-full md:w-[400px] py-5 font-['Montserrat'] font-black text-black text-[18px] uppercase tracking-wider"
@@ -158,7 +176,7 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
           </div>
         </div>
 
-        {/* --- MAP SECTION --- */}
+        {/* --- MAP SECTION (Now inside the container) --- */}
         <motion.div
           className="flex flex-col w-full"
           initial={{ opacity: 0, y: 30 }}
@@ -166,15 +184,15 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
           viewport={{ once: true }}
         >
           <div className="flex items-center gap-4 mb-8">
-             <div className="h-[2px] w-12 bg-[#f0c93b]" />
-             <h3 className="font-['Bebas_Neue'] text-white text-[32px] md:text-[56px] uppercase">Visit our Workshop</h3>
+            <div className="h-[2px] w-12 bg-[#f0c93b]" />
+            <h3 className="font-['Bebas_Neue'] text-white text-[32px] md:text-[56px] uppercase">Visit our Workshop</h3>
           </div>
 
           <div className="group relative w-full h-[400px] md:h-[500px] rounded-2xl border-2 border-white/10 overflow-hidden shadow-2xl transition-all duration-500 hover:border-[#f0c93b]/50">
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent pointer-events-none z-10 opacity-60" />
             
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.435775791782!2d55.3520299!3d25.2296107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5d305a0adebf%3A0xb484371531874cb5!2sGenuine%20Auto%20General%20Repairing!5e0!3m2!1sen!2sae!4v1710000000000!5m2!1sen!2sae"
+               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.435775791782!2d55.3520299!3d25.2296107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5d305a0adebf%3A0xb484371531874cb5!2sGenuine%20Auto%20General%20Repairing!5e0!3m2!1sen!2sae!4v1710000000000!5m2!1sen!2sae"
               width="100%"
               height="100%"
               style={{ border: 0, filter: "grayscale(1) invert(0.92) contrast(1.2) brightness(0.8)" }}
@@ -202,6 +220,8 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
     </section>
   );
 }
+
+// --- SUB-COMPONENTS ---
 
 function ContactDetail({ label, value, href }: any) {
   return (
