@@ -4,12 +4,14 @@ import { Facebook, Instagram, MessageCircle } from "lucide-react";
 export function StickySocialButtons() {
   const socialLinks = [
     {
-      name: "Facebook",
-      label: "Follow Genuine Garage on Facebook",
-      icon: Facebook,
-      href: "https://www.facebook.com/profile.php?id=100084750101762",
-      color: "#1877F2",
-      hoverColor: "#1565C0",
+      name: "WhatsApp",
+      label: "Chat with a Mechanic on WhatsApp",
+      icon: MessageCircle,
+      // Uses api.whatsapp.com for best compatibility
+      href: "https://api.whatsapp.com/send?phone=971524895673&text=Hello%20Genuine%20Garage%2C%20I%20would%20like%20to%20get%20a%20quote%20for%20a%20car%20service.",
+      color: "#25D366",
+      hoverColor: "#1EBE57",
+      isPrimary: true, // Adds the pulse effect
     },
     {
       name: "Instagram",
@@ -20,14 +22,12 @@ export function StickySocialButtons() {
       hoverColor: "#C13584",
     },
     {
-      name: "WhatsApp",
-      label: "Chat with a Mechanic on WhatsApp",
-      icon: MessageCircle,
-      // FIX: Changed to api.whatsapp.com for better reliability and added encoded message
-      href: "https://api.whatsapp.com/send?phone=971524895673&text=Hello%20Genuine%20Garage%2C%20I%20would%20like%20to%20get%20a%20quote%20for%20a%20car%20service.",
-      color: "#25D366",
-      hoverColor: "#1EBE57",
-      isPrimary: true,
+      name: "Facebook",
+      label: "Follow Genuine Garage on Facebook",
+      icon: Facebook,
+      href: "https://www.facebook.com/profile.php?id=100084750101762",
+      color: "#1877F2",
+      hoverColor: "#1565C0",
     },
   ];
 
@@ -63,6 +63,7 @@ export function StickySocialButtons() {
         >
           <span className="sr-only">{social.name}</span>
 
+          {/* Pulse Effect for Primary Button (WhatsApp) */}
           {social.isPrimary && (
             <motion.span
               className="absolute inset-0 rounded-full bg-[#25D366] -z-10"
@@ -80,6 +81,7 @@ export function StickySocialButtons() {
           
           <social.icon className="w-5 h-5 md:w-6 md:h-6 text-white" strokeWidth={2.5} />
           
+          {/* Hover Tooltip (Desktop Only) */}
           <span className="absolute right-full mr-4 px-3 py-1.5 bg-[#1c1b17] border border-[#f0c93b]/30 text-[#f0c93b] text-[10px] font-bold rounded-sm opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none hidden md:block uppercase tracking-[0.1em] whitespace-nowrap shadow-xl">
             {social.name}
           </span>
