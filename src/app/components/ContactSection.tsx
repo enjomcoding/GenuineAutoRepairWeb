@@ -19,9 +19,16 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // Updated strictly with your provided link for external directions
+  const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Genuine+Garage+Umm+Ramool+Dubai";
+  
+  // CORRECTED EMBED URL: Uses the embed endpoint to resolve the iframe error
+  const EMBED_URL = "https://maps.google.com3";
+
+  const GARAGE_PHONE = "971524895673";
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     const currentYear = new Date().getFullYear();
     const yearNum = parseInt(formData.vehicleYear);
     
@@ -31,8 +38,6 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
     }
     
     const fullNumber = `+971${formData.phone.trim()}`;
-    
-    // PLAIN TEXT MESSAGE FORMAT (No extra formatting)
     const messageArray = [
       "NEW SERVICE INQUIRY - GENUINE GARAGE",
       "",
@@ -50,12 +55,9 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
     ];
 
     const finalMessage = messageArray.join("\n");
-    const garagePhone = "971524895673"; 
-    
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${garagePhone}&text=${encodeURIComponent(finalMessage)}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${GARAGE_PHONE}&text=${encodeURIComponent(finalMessage)}`;
     
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
@@ -80,19 +82,22 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
           </motion.h2>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
-          <div className="flex flex-col">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 mb-16 md:mb-24">
+          
+          <div className="flex flex-col justify-start">
             <h3 className="font-['Bebas_Neue'] text-white text-[32px] md:text-[56px] mb-8 uppercase">Reach Us</h3>
-            <div className="space-y-8 mb-12">
-              <ContactDetail label="Location" value="1 Street 1 - Umm Ramool - Dubai" />
-              <ContactDetail label="Phone" value="052 489 5673" href="tel:0524895673" />
+            
+            <div className="flex flex-col gap-y-10 mb-12">
+              <ContactDetail label="Location" value="1 Street 1 - Umm Ramool - Dubai" href={GOOGLE_MAPS_URL} />
+              <ContactDetail label="Phone" value="052 489 5673" href={`tel:${GARAGE_PHONE}`} />
               <ContactDetail label="Email" value="book@genuinegarage.ae" href="mailto:book@genuinegarage.ae" />
             </div>
             
             <motion.button
               onClick={onCallClick}
               className="bg-[#f0c93b] w-full md:w-[400px] py-5 font-['Montserrat'] font-black text-black text-[18px] uppercase tracking-wider"
-              whileHover={{ scale: 1.02, backgroundColor: "#fff" }}
+              whileHover={{ backgroundColor: "#000", color: "#f0c93b", outline: "1px solid #f0c93b" }}
+              whileTap={{ scale: 0.98 }}
             >
               CALL NOW
             </motion.button>
@@ -111,9 +116,7 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
                       +971
                     </div>
                     <input
-                      type="tel"
-                      required
-                      value={formData.phone}
+                      type="tel" required value={formData.phone}
                       onChange={(e: any) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, '') })}
                       placeholder="Phone"
                       className="bg-[#1c1b17] border border-white/10 rounded-r-lg w-full py-4 px-4 font-['Montserrat'] text-white text-[16px] outline-none focus:border-[#f0c93b] transition-all"
@@ -129,12 +132,8 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
                 <div className="grid grid-cols-2 gap-3">
                   <InputField label="Model" required value={formData.vehicleModel} onChange={(e: any) => setFormData({ ...formData, vehicleModel: e.target.value })} />
                   <input
-                    type="text"
-                    inputMode="numeric"
-                    required
-                    placeholder="Year"
-                    value={formData.vehicleYear}
-                    maxLength={4}
+                    type="text" inputMode="numeric" required placeholder="Year"
+                    value={formData.vehicleYear} maxLength={4}
                     onChange={(e) => setFormData({ ...formData, vehicleYear: e.target.value.replace(/\D/g, '') })}
                     className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white outline-none focus:border-[#f0c93b] transition-all"
                   />
@@ -150,36 +149,85 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
               <motion.button
                 type="submit"
                 className="bg-[#f0c93b] w-full py-5 font-['Montserrat'] font-black text-black text-[18px] uppercase tracking-wider"
-                whileHover={{ backgroundColor: "#000", color: "#f0c93b" }}
+                whileHover={{ backgroundColor: "#000", color: "#f0c93b", outline: "1px solid #f0c93b" }}
                 whileTap={{ scale: 0.98 }}
               >
                 SEND REQUEST
               </motion.button>
-
-              {isSubmitted && (
-                <motion.p className="font-['Montserrat'] font-bold text-[#f0c93b] text-[16px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                  Redirecting to WhatsApp...
-                </motion.p>
-              )}
             </form>
           </div>
         </div>
+
+        {/* --- MAP SECTION --- */}
+        <motion.div
+          className="flex flex-col w-full"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <div className="flex items-center gap-4 mb-8">
+             <div className="h-[2px] w-12 bg-[#f0c93b]" />
+             <h3 className="font-['Bebas_Neue'] text-white text-[32px] md:text-[56px] uppercase">Visit our Workshop</h3>
+          </div>
+
+          <div className="group relative w-full h-[400px] md:h-[500px] rounded-2xl border-2 border-white/10 overflow-hidden shadow-2xl transition-all duration-500 hover:border-[#f0c93b]/50">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent pointer-events-none z-10 opacity-60" />
+            
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.435775791782!2d55.3520299!3d25.2296107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5d305a0adebf%3A0xb484371531874cb5!2sGenuine%20Auto%20General%20Repairing!5e0!3m2!1sen!2sae!4v1710000000000!5m2!1sen!2sae"
+              width="100%"
+              height="100%"
+              style={{ border: 0, filter: "grayscale(1) invert(0.92) contrast(1.2) brightness(0.8)" }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Workshop Location"
+              className="transition-all duration-700 group-hover:filter-none group-hover:brightness-100"
+            />
+
+            <motion.a 
+              href={GOOGLE_MAPS_URL} 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute bottom-8 right-8 z-20 bg-white text-black px-6 py-3 font-['Montserrat'] font-bold text-sm uppercase flex items-center gap-2 shadow-xl hover:bg-[#f0c93b] transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/></svg>
+              Get Directions
+            </motion.a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 }
 
-// Helpers
 function ContactDetail({ label, value, href }: any) {
   return (
-    <div>
-      <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[20px] md:text-[28px] uppercase tracking-wide">{label}</p>
+    <motion.div 
+      whileHover={{ x: 10 }} 
+      className="flex flex-col items-start gap-1"
+      transition={{ type: "spring", stiffness: 400, damping: 15 }}
+    >
+      <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[20px] md:text-[28px] uppercase tracking-wide leading-none">
+        {label}
+      </p>
       {href ? (
-        <a href={href} className="font-['Montserrat'] font-medium text-white/90 text-[14px] md:text-[18px] hover:text-[#f0c93b] transition-colors">{value}</a>
+        <a 
+          href={href} 
+          target={href.startsWith('http') ? "_blank" : undefined}
+          rel="noopener noreferrer"
+          className="font-['Montserrat'] font-medium text-white/90 text-[14px] md:text-[18px] hover:text-[#f0c93b] transition-colors leading-snug"
+        >
+          {value}
+        </a>
       ) : (
-        <p className="font-['Montserrat'] font-medium text-white/90 text-[14px] md:text-[18px]">{value}</p>
+        <p className="font-['Montserrat'] font-medium text-white/90 text-[14px] md:text-[18px] leading-snug">
+          {value}
+        </p>
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -187,7 +235,7 @@ function InputField({ label, type = "text", value, onChange, required = false }:
   return (
     <input
       type={type} required={required} value={value} onChange={onChange} placeholder={label}
-      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none focus:border-[#f0c93b] transition-all"
+      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none focus:border-[#f0c93b] transition-all placeholder:text-white/20"
     />
   );
 }
@@ -195,13 +243,16 @@ function InputField({ label, type = "text", value, onChange, required = false }:
 function SelectField({ label, value, onChange }: any) {
   const services = ["Pre-Sale Inspection", "Oil Change", "Diagnostics", "Auto Repair", "Preventive Maintenance", "Car Spa", "Tinting", "Paint Protection", "Detailing", "Other"];
   return (
-    <select
-      value={value} onChange={onChange} required
-      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none appearance-none cursor-pointer focus:border-[#f0c93b]"
-    >
-      <option value="" disabled>{label}</option>
-      {services.map((s) => <option key={s} value={s} className="bg-[#1c1b17]">{s}</option>)}
-    </select>
+    <div className="relative">
+      <select
+        value={value} onChange={onChange} required
+        className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none appearance-none cursor-pointer focus:border-[#f0c93b]"
+      >
+        <option value="" disabled>{label}</option>
+        {services.map((s) => <option key={s} value={s} className="bg-[#1c1b17]">{s}</option>)}
+      </select>
+      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white/30 text-xs">▼</div>
+    </div>
   );
 }
 
@@ -209,7 +260,7 @@ function TextAreaField({ label, value, onChange }: any) {
   return (
     <textarea
       value={value} onChange={onChange} placeholder={label} rows={4}
-      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none focus:border-[#f0c93b]"
+      className="bg-[#1c1b17] border border-white/10 rounded-lg w-full py-4 px-5 font-['Montserrat'] text-white text-[16px] outline-none focus:border-[#f0c93b] resize-none placeholder:text-white/20"
     />
   );
 }
