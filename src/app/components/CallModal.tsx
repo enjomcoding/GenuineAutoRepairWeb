@@ -1,16 +1,11 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Phone, MessageCircle, ChevronDown, AlertCircle } from "lucide-react";
+import { X, Phone, MessageCircle, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
-
-interface CallModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
 export function CallModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
     name: "",
-    phone: "",
+    phone: "", 
     timeSlot: "",
   });
   
@@ -28,7 +23,7 @@ export function CallModal({ isOpen, onClose }) {
 
   const validate = () => {
     const nameValid = formData.name.trim().length >= 2;
-    const phoneValid = /^[0-9+\s-]{7,15}$/.test(formData.phone.trim()); 
+    const phoneValid = /^[0-9\s-]{7,10}$/.test(formData.phone.trim()); 
     
     setErrors({
       name: !nameValid,
@@ -47,14 +42,14 @@ export function CallModal({ isOpen, onClose }) {
     if (!validate()) return;
 
     const timeLabel = formData.timeSlot || "as soon as possible";
+    const fullNumber = `+971${formData.phone.trim()}`;
 
-    // Normal Professional Chat Message
-    const message = `Hi Genuine Garage, my name is ${formData.name}. I'd like to book a service for my car. I'm looking for a slot ${timeLabel}. Please let me know if you are available. My number is ${formData.phone}. Thanks!`;
+    const message = `Hi Genuine Garage, my name is ${formData.name}. I'd like to book a service for my car. I'm looking for a slot ${timeLabel}. My contact number is ${fullNumber}. Please let me know your availability. Thanks!`;
 
-    window.open(
-      `https://wa.me/971524895673?text=${encodeURIComponent(message)}`,
-      "_blank"
-    );
+    // FIX: Switched to api.whatsapp.com for stability across all devices
+    const waUrl = `https://api.whatsapp.com/send?phone=971524895673&text=${encodeURIComponent(message)}`;
+
+    window.open(waUrl, "_blank", "noopener,noreferrer");
     onClose();
   };
 
@@ -77,7 +72,6 @@ export function CallModal({ isOpen, onClose }) {
             exit={{ opacity: 0, scale: 0.9, x: "-50%", y: "-50%" }}
           >
             <div className="bg-[#1c1b17] border-2 border-[#f0c93b] shadow-2xl overflow-hidden">
-              
               <div className="bg-[#f0c93b] px-6 py-5 flex justify-between items-center">
                 <div className="flex flex-col">
                   <span className="font-['Bebas_Neue'] text-black text-3xl leading-none">PRIORITY BOOKING</span>
@@ -90,6 +84,7 @@ export function CallModal({ isOpen, onClose }) {
 
               <div className="p-6 md:p-8">
                 <div className="space-y-5">
+                  {/* Name Input */}
                   <div>
                     <label className="font-['Montserrat'] text-[#f0c93b] text-[10px] uppercase font-bold mb-2 block">Full Name *</label>
                     <input
@@ -101,17 +96,25 @@ export function CallModal({ isOpen, onClose }) {
                     />
                   </div>
 
+                  {/* Phone Input with Prefix */}
                   <div>
                     <label className="font-['Montserrat'] text-[#f0c93b] text-[10px] uppercase font-bold mb-2 block">Phone / WhatsApp *</label>
-                    <input
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className={`w-full bg-white/5 border ${errors.phone ? 'border-red-500' : 'border-white/10'} px-4 py-3 font-['Montserrat'] text-white text-sm outline-none focus:border-[#f0c93b]`}
-                      placeholder="+971 -- --- ----"
-                    />
+                    <div className="flex group">
+                      <div className="bg-white/10 border-y border-l border-white/10 px-3 py-3 font-['Montserrat'] text-white/50 text-sm flex items-center select-none group-focus-within:border-[#f0c93b]/50">
+                        +971
+                      </div>
+                      <input
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, '') })} 
+                        className={`w-full bg-white/5 border ${errors.phone ? 'border-red-500' : 'border-white/10'} px-4 py-3 font-['Montserrat'] text-white text-sm outline-none focus:border-[#f0c93b]`}
+                        placeholder="52 489 5673"
+                        maxLength={10}
+                      />
+                    </div>
                   </div>
 
+                  {/* Time Slot Select */}
                   <div className="relative">
                     <label className="font-['Montserrat'] text-[#f0c93b] text-[10px] uppercase font-bold mb-2 block">Booking Window</label>
                     <div className="relative">

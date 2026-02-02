@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
-import imgAbout from "@/assets/imgAbout.png";
+import imgAbout from "@/assets/imgAbout2.jpg";
 
 interface AboutSectionProps {
   onCallClick: () => void;

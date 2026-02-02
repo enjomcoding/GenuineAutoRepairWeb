@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"; // Consistent with previous framer-motion imports
+import { motion } from "framer-motion"; 
 import { Facebook, Instagram, MessageCircle } from "lucide-react";
 
 export function StickySocialButtons() {
@@ -23,7 +23,8 @@ export function StickySocialButtons() {
       name: "WhatsApp",
       label: "Chat with a Mechanic on WhatsApp",
       icon: MessageCircle,
-      href: "https://wa.me/971524895673",
+      // FIX: Changed to api.whatsapp.com for better reliability and added encoded message
+      href: "https://api.whatsapp.com/send?phone=971524895673&text=Hello%20Genuine%20Garage%2C%20I%20would%20like%20to%20get%20a%20quote%20for%20a%20car%20service.",
       color: "#25D366",
       hoverColor: "#1EBE57",
       isPrimary: true,
@@ -60,10 +61,8 @@ export function StickySocialButtons() {
           }}
           whileTap={{ scale: 0.9 }}
         >
-          {/* SEO Text: Only visible to screen readers */}
           <span className="sr-only">{social.name}</span>
 
-          {/* Logic for WhatsApp Pulse - Visual Attention Driver */}
           {social.isPrimary && (
             <motion.span
               className="absolute inset-0 rounded-full bg-[#25D366] -z-10"
@@ -81,7 +80,6 @@ export function StickySocialButtons() {
           
           <social.icon className="w-5 h-5 md:w-6 md:h-6 text-white" strokeWidth={2.5} />
           
-          {/* Tooltip: Optimized for the Garage Brand */}
           <span className="absolute right-full mr-4 px-3 py-1.5 bg-[#1c1b17] border border-[#f0c93b]/30 text-[#f0c93b] text-[10px] font-bold rounded-sm opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none hidden md:block uppercase tracking-[0.1em] whitespace-nowrap shadow-xl">
             {social.name}
           </span>
