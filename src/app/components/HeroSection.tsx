@@ -14,12 +14,6 @@ export function HeroSection({ onCallClick }: HeroSectionProps) {
     }
   };
 
-  /**
-   * FIX: WhatsApp URL
-   * 1. Uses api.whatsapp.com for maximum device compatibility.
-   * 2. Phone number must be digits only (no '+' or spaces).
-   * 3. Includes a pre-filled encoded message.
-   */
   const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=971524895673&text=Hello%20Genuine%20Garage%2C%20I%20would%20like%20to%20inquire%20about%20a%20car%20service.";
 
   const iconVariants = {
@@ -49,11 +43,12 @@ export function HeroSection({ onCallClick }: HeroSectionProps) {
   const springTransition = { type: "spring", stiffness: 400, damping: 25 };
 
   return (
-    <section className="relative w-full h-[650px] md:h-[950px] overflow-hidden bg-black">
+    /* FIXED: Changed h-[650px] to min-h-screen/h-auto to prevent content cutoff */
+    <section className="relative w-full min-h-[750px] md:h-[950px] flex flex-col justify-center overflow-hidden bg-black py-20 md:py-0">
       <div className="absolute inset-0">
         <img
           src={imgHeroBg}
-          alt="Genuine Garage Dubai Workshop - Professional Car Repair, Maintenance, and Detailing in Umm Ramool"
+          alt="Genuine Garage Dubai Workshop"
           className="w-full h-full object-cover object-right md:object-center"
           loading="eager"
         />
@@ -65,7 +60,7 @@ export function HeroSection({ onCallClick }: HeroSectionProps) {
         />
       </div>
 
-      <div className="relative z-10 px-5 md:px-[109px] pt-[100px] md:pt-[180px]">
+      <div className="relative z-10 px-5 md:px-[109px]">
         <motion.p
           className="font-['Montserrat'] font-semibold text-[#f0c93b] text-[16px] md:text-[32px] mb-3 md:mb-6 uppercase tracking-wider"
           initial={{ opacity: 0, y: 10 }}
@@ -76,7 +71,7 @@ export function HeroSection({ onCallClick }: HeroSectionProps) {
         </motion.p>
 
         <motion.h1
-          className="font-['Bebas_Neue'] text-[48px] md:text-[96px] leading-[1] md:leading-[102px] tracking-tight md:tracking-[-2.88px] mb-6 md:mb-8 uppercase"
+          className="font-['Bebas_Neue'] text-[44px] sm:text-[48px] md:text-[96px] leading-[1.1] md:leading-[102px] tracking-tight md:tracking-[-2.88px] mb-6 md:mb-8 uppercase"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -102,23 +97,23 @@ export function HeroSection({ onCallClick }: HeroSectionProps) {
           </span>
         </motion.p>
 
-        <div className="flex flex-col md:flex-row gap-3 md:gap-6">
+        {/* BUTTON GRID: Improved for small screens */}
+        <div className="flex flex-col md:flex-row gap-3 md:gap-6 w-full sm:max-w-[400px] md:max-w-none">
           {/* CALL CTA */}
           <motion.a
             href="tel:+971524895673"
             onClick={onCallClick}
-            className="bg-[#f0c93b] w-full md:w-[240px] h-[60px] md:h-[81px] flex items-center justify-center gap-3 cursor-pointer rounded-none group border border-[#f0c93b]"
+            className="bg-[#f0c93b] w-full md:w-[240px] h-[58px] md:h-[81px] flex items-center justify-center gap-3 cursor-pointer border border-[#f0c93b]"
             whileHover="hover"
             variants={{
                 hover: { backgroundColor: "#000000", scale: 1.03, transition: springTransition }
             }}
             whileTap={{ scale: 0.98 }}
-            aria-label="Call Genuine Garage Now"
           >
             <motion.div variants={iconVariants.phone}>
-                <Phone className="w-6 h-6 text-black group-hover:text-[#f0c93b] transition-colors duration-300 fill-current" />
+                <Phone className="w-5 h-5 md:w-6 md:h-6 text-black group-hover:text-[#f0c93b] fill-current" />
             </motion.div>
-            <span className="font-['Montserrat'] font-black text-black group-hover:text-[#f0c93b] text-[18px] md:text-[24px] uppercase transition-colors duration-300">
+            <span className="font-['Montserrat'] font-black text-black group-hover:text-[#f0c93b] text-[16px] md:text-[24px] uppercase transition-colors duration-300">
               CALL NOW
             </span>
           </motion.a>
@@ -126,39 +121,37 @@ export function HeroSection({ onCallClick }: HeroSectionProps) {
           {/* QUOTE CTA */}
           <motion.button
             onClick={scrollToContact}
-            className="bg-black/60 backdrop-blur-sm border border-[#f0c93b] w-full md:w-[240px] h-[60px] md:h-[81px] flex items-center justify-center gap-3 cursor-pointer rounded-none group"
+            className="bg-black/60 backdrop-blur-sm border border-[#f0c93b] w-full md:w-[240px] h-[58px] md:h-[81px] flex items-center justify-center gap-3 cursor-pointer group"
             whileHover="hover"
             variants={{
                 hover: { backgroundColor: "#f0c93b", scale: 1.03, transition: springTransition }
             }}
             whileTap={{ scale: 0.98 }}
-            aria-label="Get a car service quote online"
           >
             <motion.div variants={iconVariants.message}>
-                <MessageCircle className="w-6 h-6 text-[#f0c93b] group-hover:text-black transition-colors duration-300" />
+                <MessageCircle className="w-5 h-5 md:w-6 md:h-6 text-[#f0c93b] group-hover:text-black transition-colors" />
             </motion.div>
-            <span className="font-['Montserrat'] font-bold text-[#f0c93b] group-hover:text-black text-[18px] md:text-[26px] uppercase transition-colors duration-300">
+            <span className="font-['Montserrat'] font-bold text-[#f0c93b] group-hover:text-black text-[16px] md:text-[26px] uppercase transition-colors">
               Get a QUOTE
             </span>
           </motion.button>
 
-          {/* WHATSAPP CTA - FIXED LINK */}
+          {/* WHATSAPP CTA */}
           <motion.a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#25D366] w-full md:w-[240px] h-[60px] md:h-[81px] flex items-center justify-center gap-3 cursor-pointer rounded-none"
+            className="bg-[#25D366] w-full md:w-[240px] h-[58px] md:h-[81px] flex items-center justify-center gap-3 cursor-pointer"
             whileHover="hover"
             variants={{
                 hover: { backgroundColor: "#39e67a", scale: 1.03, transition: springTransition }
             }}
             whileTap={{ scale: 0.98 }}
-            aria-label="Contact via WhatsApp"
           >
             <motion.div variants={iconVariants.whatsapp}>
-                <MessageCircle className="w-6 h-6 md:w-7 md:h-7 text-white fill-current" />
+                <MessageCircle className="w-5 h-5 md:w-7 md:h-7 text-white fill-current" />
             </motion.div>
-            <span className="font-['Montserrat'] font-black text-white text-[18px] md:text-[24px] uppercase">
+            <span className="font-['Montserrat'] font-black text-white text-[16px] md:text-[24px] uppercase">
               WhatsApp
             </span>
           </motion.a>
