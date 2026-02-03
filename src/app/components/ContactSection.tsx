@@ -188,10 +188,10 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
           </div>
 
           <div className="group relative w-full h-[400px] md:h-[500px] rounded-2xl border-2 border-white/10 overflow-hidden shadow-2xl transition-all duration-500 hover:border-[#f0c93b]/50">
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent pointer-events-none z-10 opacity-60" />
             
+            {/* 1. The Actual Map */}
             <iframe
-               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.435775791782!2d55.3520299!3d25.2296107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5d305a0adebf%3A0xb484371531874cb5!2sGenuine%20Auto%20General%20Repairing!5e0!3m2!1sen!2sae!4v1710000000000!5m2!1sen!2sae"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.435775791782!2d55.3520299!3d25.2296107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5d305a0adebf%3A0xb484371531874cb5!2sGenuine%20Auto%20General%20Repairing!5e0!3m2!1sen!2sae!4v1710000000000!5m2!1sen!2sae"
               width="100%"
               height="100%"
               style={{ border: 0, filter: "grayscale(1) invert(0.92) contrast(1.2) brightness(0.8)" }}
@@ -202,6 +202,19 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
               className="transition-all duration-700 group-hover:filter-none group-hover:brightness-100"
             />
 
+            {/* 2. Invisible Clickable Overlay - This makes the whole map act as a link */}
+            <a 
+              href={GOOGLE_MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute inset-0 z-10 cursor-pointer"
+              aria-label="Get Directions"
+            >
+              {/* Gradient Overlay for style */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60 pointer-events-none" />
+            </a>
+
+            {/* 3. The Button (kept for UI, but z-index is higher to remain interactive) */}
             <motion.a 
               href={GOOGLE_MAPS_URL} 
               target="_blank"
@@ -210,7 +223,9 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
+              </svg>
               Get Directions
             </motion.a>
           </div>
