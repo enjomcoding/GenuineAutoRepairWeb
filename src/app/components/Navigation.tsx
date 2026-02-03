@@ -102,9 +102,15 @@ export function Navigation({ isSticky }: NavigationProps) {
               alt="Genuine Garage Dubai - Premium Auto Repair & Maintenance Specialist"
               className="w-[70px] h-[70px] md:w-[100px] md:h-[100px] object-contain"
             />
-            <div className="flex flex-col text-left border-l border-white/10 pl-4">
-              <span className="font-['Bebas_Neue'] text-[#f0c93b] text-[28px] md:text-[40px] leading-[0.85] tracking-tight uppercase">GENUINE</span>
-              <span className="font-['Bebas_Neue'] text-white text-[18px] md:text-[22px] tracking-[0.2em] uppercase mt-1">GARAGE</span>
+            
+            {/* The vertical line is back via border-l and pl-4 */}
+            <div className="flex flex-col items-center text-center border-l border-white/10 pl-4">
+              <span className="font-['Bebas_Neue'] text-[#f0c93b] text-[28px] md:text-[40px] leading-[0.85] tracking-tight uppercase">
+                GENUINE
+              </span>
+              <span className="font-['Bebas_Neue'] text-white text-[18px] md:text-[22px] tracking-[0.2em] uppercase mt-1">
+                GARAGE
+              </span>
             </div>
           </a>
 

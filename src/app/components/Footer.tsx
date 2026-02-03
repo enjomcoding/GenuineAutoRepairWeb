@@ -40,8 +40,8 @@ export function Footer() {
           </h4>
           <ul className="space-y-4">
             <FooterLink onClick={() => scrollToSection("hero")}>Home</FooterLink>
-            <FooterLink onClick={() => scrollToSection("services")}>Specialist Services</FooterLink>
-            <FooterLink onClick={() => scrollToSection("about")}>Our Story</FooterLink>
+            <FooterLink onClick={() => scrollToSection("services")}>Services</FooterLink>
+            <FooterLink onClick={() => scrollToSection("about")}>About Us</FooterLink>
             <FooterLink onClick={() => scrollToSection("reviews")}>Client Reviews</FooterLink>
             <FooterLink onClick={() => scrollToSection("contact")}>Book Appointment</FooterLink>
           </ul>
@@ -55,9 +55,9 @@ export function Footer() {
           <ul className="space-y-4">
             <li className="font-['Montserrat'] font-semibold text-white/40 text-[13px] uppercase tracking-wider hover:text-[#f0c93b] transition-colors cursor-default">Mechanical Repair</li>
             <li className="font-['Montserrat'] font-semibold text-white/40 text-[13px] uppercase tracking-wider hover:text-[#f0c93b] transition-colors cursor-default">Computer Diagnostics</li>
-            <li className="font-['Montserrat'] font-semibold text-white/40 text-[13px] uppercase tracking-wider hover:text-[#f0c93b] transition-colors cursor-default">Ceramic Coating</li>
-            <li className="font-['Montserrat'] font-semibold text-white/40 text-[13px] uppercase tracking-wider hover:text-[#f0c93b] transition-colors cursor-default">Window Tinting</li>
-            <li className="font-['Montserrat'] font-semibold text-white/40 text-[13px] uppercase tracking-wider hover:text-[#f0c93b] transition-colors cursor-default">Paint Protection (PPF)</li>
+            <li className="font-['Montserrat'] font-semibold text-white/40 text-[13px] uppercase tracking-wider hover:text-[#f0c93b] transition-colors cursor-default">Electrical Works</li>
+            <li className="font-['Montserrat'] font-semibold text-white/40 text-[13px] uppercase tracking-wider hover:text-[#f0c93b] transition-colors cursor-default">Detailing, PPF, and Tinting</li>
+            <li className="font-['Montserrat'] font-semibold text-white/40 text-[13px] uppercase tracking-wider hover:text-[#f0c93b] transition-colors cursor-default">Preventive Maintenance</li>
           </ul>
         </div>
 
@@ -86,10 +86,10 @@ export function Footer() {
               </span>
             </a>
 
-            <a href="mailto:book@genuinegarage.ae" className="group flex items-center gap-3">
+            <a href="mailto:info@genuinegarage.ae" className="group flex items-center gap-3">
               <EmailIcon className="w-5 h-5 text-[#f0c93b]" />
               <span className="font-['Montserrat'] font-medium text-white/60 text-[14px] group-hover:text-white transition-colors">
-                book@genuinegarage.ae
+                info@genuinegarage.ae
               </span>
             </a>
           </div>

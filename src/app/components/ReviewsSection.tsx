@@ -2,63 +2,50 @@ import { motion } from "framer-motion";
 import imgStars from "@/assets/imgStars.png";
 
 export function ReviewsSection() {
+  // Dates calculated back from February 2026 to match your relative terms
   const reviews = [
     {
-      name: "Ahmed Al Mansoori",
-      date: "2024-12-15",
-      displayDate: "December 15, 2024",
-      text: "Excellent service! My car was repaired quickly and professionally. The team at Genuine Auto Repair was very transparent about the pricing and kept me informed throughout the process. Highly recommend!",
+      name: "Ahmed Babaiker",
+      date: "2026-01-05", 
+      displayDate: "a month ago",
+      text: "The best ever ,,,\n\nSo professionals and the level of the hospitality I can’t describe it\n\nWith a very nice and clean area for the customers and free wifi\n\nVery transparent and clear about the problems and how they are going to fix them\n\nAnd the price when you compare it with the market you will find out it’s reasonable\n\nI only fix my car with them since many years back",
     },
     {
-      name: "Sarah Johnson",
-      date: "2024-12-10",
-      displayDate: "December 10, 2024",
-      text: "I've been bringing my car here for over a year now. The quality of work is outstanding, and the staff is always friendly and helpful. They've earned my trust and loyalty!",
+      name: "Jihad Debian",
+      date: "2025-11-01",
+      displayDate: "3 months ago",
+      text: "I couldn't be happier with my experience at Genuine Garage!\nAfter struggling with an issue that several other garages couldn't troubleshoot or identify, I was relieved to find a team with such impressive expertise.\n\nThe entire staff demonstrated an in-depth knowledge of my vehicle and quickly pinpointed the problems that had stumped others. Not only did they fix it efficiently, but their reasonable rates made the experience even better.\n\nIt's hard to find a garage that combines quality service with affordability, but Genuine Garage hits the mark perfectly. I highly recommend them to anyone looking for reliable and skilled mechanics.\n\nThank you guys for the fantastic service and experience!",
     },
     {
-      name: "Mohammed Hassan",
-      date: "2024-12-05",
-      displayDate: "December 5, 2024",
-      text: "Best auto repair shop in Dubai! They did an amazing job with my car's ceramic coating. The attention to detail was impressive. Will definitely be back for all my car maintenance needs.",
+      name: "Elias Hassoun",
+      date: "2025-12-10",
+      displayDate: "2 months ago",
+      text: "I have always had excellent service from Genuine Auto General Repairing. The whole team is professional and friendly, taking time to define, explain and fix any issues about my cars.",
     },
     {
-      name: "Lisa Chen",
-      date: "2024-11-28",
-      displayDate: "November 28, 2024",
-      text: "Fair pricing, honest service, and skilled technicians. What more could you ask for? They diagnosed and fixed my car's issue quickly. Very satisfied with the experience!",
+      name: "Daniele Giuffrida",
+      date: "2025-10-05",
+      displayDate: "4 months ago",
+      text: "Excellent service, professional and responsible. I liked the welcoming attitude and the effectiveness in their reaction. They managed to solve a major issue that three previous garages were not able neither to identify nor to fix. Praise to Mr. Fahad, the owner, and to Mr. Kamali, the manager. I recommend their garage.",
     },
     {
-      name: "Omar Khalid",
-      date: "2024-11-20",
-      displayDate: "November 20, 2024",
-      text: "Took my car for window tinting and paint protection. The result exceeded my expectations! The team was professional from start to finish. Definitely recommend their services.",
+      name: "Richard P",
+      date: "2025-12-12",
+      displayDate: "2 months ago",
+      text: "Excellent service. Very knowledgeable and friendly. I highly recommend Fahd and his team for all your maintenance and repair requirements.",
     },
     {
-      name: "Jennifer Martinez",
-      date: "2024-11-15",
-      displayDate: "November 15, 2024",
-      text: "I had a great experience with Genuine Auto Repair. They were honest about what my car needed and didn't try to upsell me on unnecessary services. The quality of parts they use is excellent!",
+      name: "Housam Kanbriss",
+      date: "2025-11-15",
+      displayDate: "3 months ago",
+      text: "Top place; reliable, high quality, fast and very cost effective. The owner, manager (Kamali), and staff are top notch. All and all, best Auto services and repair shop in Dubai!",
     },
   ];
 
   const springTransition = { type: "spring", stiffness: 400, damping: 25 };
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Genuine Garage Dubai",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.7",
-      "reviewCount": "500"
-    }
-  };
-
   return (
     <section id="reviews" className="relative w-full py-16 md:py-32 px-5 md:px-[73px] bg-[#0a0a0a] overflow-hidden">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-
-      {/* Section Header */}
       <div className="max-w-[1304px] mx-auto mb-12 md:mb-20">
         <motion.h2
           className="font-['Bebas_Neue'] text-[42px] sm:text-[48px] md:text-[100px] mb-4 tracking-tight uppercase leading-[1.1]"
@@ -82,8 +69,7 @@ export function ReviewsSection() {
         </motion.p>
       </div>
 
-      {/* Reviews Grid - 6 Reviews */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-10 max-w-[1304px] mx-auto mb-16 md:mb-24">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 max-w-[1304px] mx-auto mb-16 md:mb-24">
         {reviews.map((review, index) => (
           <ReviewCard key={index} {...review} delay={index * 0.1} />
         ))}
@@ -110,7 +96,6 @@ export function ReviewsSection() {
           </p>
         </motion.div>
 
-        {/* Action Button */}
         <motion.a
           href="https://search.google.com/local/writereview?placeid=ChIJv94KWjBdXz4RtUyHMRU3hLQ"
           target="_blank"
@@ -139,6 +124,23 @@ export function ReviewsSection() {
 }
 
 function ReviewCard({ name, date, displayDate, text, delay }: any) {
+  // Helper to keep dates updated automatically as time passes
+  const getAutoRelativeDate = (originalDate: string, originalText: string) => {
+    const eventDate = new Date(originalDate);
+    const now = new Date();
+    const diffInMonths = (now.getFullYear() - eventDate.getFullYear()) * 12 + (now.getMonth() - eventDate.getMonth());
+    
+    // If it's still within the same month range as your manual text, use your text
+    if (diffInMonths <= parseInt(originalText) || originalText.includes('month')) {
+        return originalText; 
+    }
+
+    // Otherwise, let it age naturally
+    if (diffInMonths < 12) return `${diffInMonths} months ago`;
+    const years = Math.floor(diffInMonths / 12);
+    return years === 1 ? "a year ago" : `${years} years ago`;
+  };
+
   return (
     <motion.div
       className="bg-[#141414] border border-white/5 p-8 md:p-10 relative group"
@@ -154,8 +156,10 @@ function ReviewCard({ name, date, displayDate, text, delay }: any) {
           <span className="font-['Montserrat'] text-[10px] text-white/20 uppercase tracking-[0.2em] font-bold">Genuine Customer</span>
         </div>
         <h4 className="font-['Bebas_Neue'] text-white text-[24px] md:text-[28px] mb-1 tracking-wide group-hover:text-[#f0c93b] transition-colors">{name}</h4>
-        <time dateTime={date} className="font-['Montserrat'] font-bold text-[#f0c93b] text-[11px] mb-6 uppercase tracking-[0.15em] opacity-80">{displayDate}</time>
-        <p className="font-['Montserrat'] font-medium text-white/80 text-[15px] md:text-[17px] leading-relaxed italic">"{text}"</p>
+        <time dateTime={date} className="font-['Montserrat'] font-bold text-[#f0c93b] text-[11px] mb-6 uppercase tracking-[0.15em] opacity-80">
+          {getAutoRelativeDate(date, displayDate)}
+        </time>
+        <p className="font-['Montserrat'] font-medium text-white/80 text-[15px] md:text-[17px] leading-relaxed italic whitespace-pre-line">"{text}"</p>
       </div>
     </motion.div>
   );
