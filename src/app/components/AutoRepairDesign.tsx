@@ -18,8 +18,7 @@ export function AutoRepairDesign({ isNavSticky }: AutoRepairDesignProps) {
   const [selectedService, setSelectedService] = useState<string>("");
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
 
-  // Auto-modal strategy (Careful: Google prefers low intrusive interstitials, 
-  // but a 1.5s delay is generally fine for service-based businesses)
+  // Auto-modal strategy
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsCallModalOpen(true);
@@ -42,10 +41,10 @@ export function AutoRepairDesign({ isNavSticky }: AutoRepairDesignProps) {
 
   return (
     <div className="relative w-full bg-[#1f1f24] min-h-screen">
-      {/* --- Top Info Bar (SEO: Semantic Address for Local Search) --- */}
-      <address className="not-italic bg-[#17161c] w-full px-4 lg:px-[70px] py-2 md:py-0 md:h-[87px] flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0 border-b border-white/5">
+      {/* --- Top Info Bar --- */}
+      <address className="not-italic bg-[#17161c] w-full px-4 lg:px-[70px] py-3 md:py-0 md:h-[87px] flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 border-b border-white/5">
         
-        {/* FIXED: Google Maps & Local Keyword Optimization */}
+        {/* Location Section */}
         <div className="flex items-center gap-2 max-w-[90%] md:max-w-none text-center md:text-left">
           <LocationIcon className="w-5 h-5 md:w-8 md:h-8 flex-shrink-0" />
           <a
@@ -58,20 +57,37 @@ export function AutoRepairDesign({ isNavSticky }: AutoRepairDesignProps) {
           </a>
         </div>
 
-        {/* Contact & Hours (SEO: Click-to-call + Machine Readable Hours) */}
-        <div className="flex items-center justify-center gap-6 md:gap-8 border-t border-white/5 md:border-none pt-2 md:pt-0 w-full md:w-auto">
-          <div className="flex items-center gap-2">
-            <PhoneIconTop className="w-5 h-5 md:w-8 md:h-8" />
-            <a
-              href="tel:+971524895673"
-              className="text-[#b3adb4] text-[13px] md:text-[15px] font-medium hover:text-[#f0c93b] transition-colors"
-              aria-label="Call Genuine Garage at 052 489 5673"
-            >
-              052 489 5673
-            </a>
+        {/* Contact & Hours Section */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 border-t border-white/5 md:border-none pt-3 md:pt-0 w-full md:w-auto">
+          
+          {/* Dual Phone Numbers */}
+          <div className="flex items-center gap-2 md:gap-3">
+            <PhoneIconTop className="w-5 h-5 md:w-7 md:h-7" />
+            <div className="flex items-center gap-3">
+              <a
+                href="tel:+971524895673"
+                className="text-[#b3adb4] text-[13px] md:text-[15px] font-medium hover:text-[#f0c93b] transition-colors whitespace-nowrap"
+                aria-label="Call Genuine Garage at 052 489 5673"
+              >
+                052 489 5673
+              </a>
+              
+              {/* Vertical Divider for Desktop */}
+              <span className="hidden md:block w-[1px] h-3 bg-white/20"></span>
+              
+              <a
+                href="tel:+97151299699"
+                className="text-[#b3adb4] text-[13px] md:text-[15px] font-medium hover:text-[#f0c93b] transition-colors whitespace-nowrap"
+                aria-label="Call Genuine Garage at 051 299 699"
+              >
+                051 299 699
+              </a>
+            </div>
           </div>
+
+          {/* Opening Hours */}
           <div className="flex items-center gap-2">
-            <ClockIcon className="w-5 h-5 md:w-8 md:h-8" />
+            <ClockIcon className="w-5 h-5 md:w-7 md:h-7" />
             <div className="flex flex-col md:flex-row md:gap-1">
               <span className="sr-only">Opening Hours:</span>
               <p className="text-[#b3adb4] text-[13px] md:text-[15px]">9AM - 8PM</p>
@@ -83,13 +99,11 @@ export function AutoRepairDesign({ isNavSticky }: AutoRepairDesignProps) {
 
       <Navigation isSticky={isNavSticky} />
 
-      {/* SEO: Main content wrapper */}
       <main id="main-content">
         <section id="home" className="scroll-mt-[100px]" aria-label="Welcome to Genuine Garage">
           <HeroSection onCallClick={handleCallClick} />
         </section>
 
-        {/* SEO: Trust markers/Expertise cards */}
         <aside aria-label="Key Service Features">
           <FeatureCards />
         </aside>
@@ -117,7 +131,6 @@ export function AutoRepairDesign({ isNavSticky }: AutoRepairDesignProps) {
 
       <Footer />
       
-      {/* Dynamic Social & Interaction layers */}
       <aside>
         <StickySocialButtons />
         <CallModal isOpen={isCallModalOpen} onClose={() => setIsCallModalOpen(false)} />
@@ -126,7 +139,7 @@ export function AutoRepairDesign({ isNavSticky }: AutoRepairDesignProps) {
   );
 }
 
-// --- Icons (Static SVG assets) ---
+// --- Icons ---
 
 function LocationIcon({ className }: { className?: string }) {
   return (

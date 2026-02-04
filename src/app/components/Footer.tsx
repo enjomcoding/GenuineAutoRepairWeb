@@ -61,7 +61,7 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Contact Block - FIXED URL */}
+        {/* Contact Block - Updated with 2 Mobile Numbers */}
         <div className="flex flex-col items-center sm:items-start">
           <h4 className="font-['Bebas_Neue'] text-white text-[22px] mb-8 uppercase tracking-widest">
             Connect
@@ -79,12 +79,20 @@ export function Footer() {
               </span>
             </a>
             
-            <a href="tel:+971524895673" className="group flex items-center gap-3">
-              <PhoneIcon className="w-5 h-5 text-[#f0c93b]" />
-              <span className="font-['Montserrat'] font-medium text-white/60 text-[14px] group-hover:text-white transition-colors">
-                +971 52 489 5673
-              </span>
-            </a>
+            <div className="space-y-3">
+              <a href="tel:+971524895673" className="group flex items-center gap-3">
+                <PhoneIcon className="w-5 h-5 text-[#f0c93b]" />
+                <span className="font-['Montserrat'] font-medium text-white/60 text-[14px] group-hover:text-white transition-colors">
+                  +971 52 489 5673
+                </span>
+              </a>
+              <a href="tel:+97151299699" className="group flex items-center gap-3">
+                <PhoneIcon className="w-5 h-5 text-[#f0c93b]" />
+                <span className="font-['Montserrat'] font-medium text-white/60 text-[14px] group-hover:text-white transition-colors">
+                  +971 51 299 699
+                </span>
+              </a>
+            </div>
 
             <a href="mailto:info@genuinegarage.ae" className="group flex items-center gap-3">
               <EmailIcon className="w-5 h-5 text-[#f0c93b]" />
@@ -99,7 +107,7 @@ export function Footer() {
       {/* Footer Bottom */}
       <div className="max-w-[1304px] mx-auto pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
         <p className="font-['Montserrat'] font-bold text-white/20 text-[11px] uppercase tracking-[0.3em]">
-          ©2024 GENUINE GARAGE. ALL RIGHTS RESERVED.
+          ©{currentYear} GENUINE GARAGE. ALL RIGHTS RESERVED.
         </p>
         
         <div className="flex gap-10">
