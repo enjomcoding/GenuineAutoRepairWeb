@@ -21,7 +21,9 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Genuine+Garage+Umm+Ramool+Dubai"; 
-  const GARAGE_PHONE = "971524895673";
+  // Main number for WhatsApp and Call Now actions
+  const GARAGE_PHONE_MAIN = "971501299699"; 
+  const GARAGE_PHONE_SECONDARY = "971524895673";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,7 +64,7 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
     ];
 
     const finalMessage = messageArray.join("\n");
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${GARAGE_PHONE}&text=${encodeURIComponent(finalMessage)}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${GARAGE_PHONE_MAIN}&text=${encodeURIComponent(finalMessage)}`;
 
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
 
@@ -88,7 +90,6 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
 
   return (
     <section id="contact" className="relative w-full py-12 md:py-24 px-5 md:px-[73px] bg-[#0a0a0a]">
-      {/* Position changed to top-center */}
       <Toaster position="top-center" reverseOrder={false} />
       
       <div className="max-w-7xl mx-auto">
@@ -108,22 +109,31 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
             <h3 className="font-['Bebas_Neue'] text-white text-[32px] md:text-[56px] mb-8 uppercase">Reach Us</h3>
             <div className="flex flex-col gap-y-10 mb-12">
               <ContactDetail label="Location" value="1 Street 1 - Umm Ramool - Dubai" href={GOOGLE_MAPS_URL} />
-              <ContactDetail label="Phone" value="052 489 5673" href={`tel:${GARAGE_PHONE}`} />
+              
+              {/* Dual Phone Numbers Display */}
+              <div className="space-y-4">
+                <ContactDetail label="Phone" value="052 489 5673" href={`tel:${GARAGE_PHONE_SECONDARY}`} />
+                <ContactDetail label="" value="050 129 9699" href={`tel:${GARAGE_PHONE_MAIN}`} />
+              </div>
+
               <ContactDetail label="Email" value="book@genuinegarage.ae" href="mailto:book@genuinegarage.ae" />
             </div>
-            <motion.button
-              onClick={onCallClick}
-              className="bg-[#f0c93b] w-full md:w-[400px] py-5 font-['Montserrat'] font-black text-black text-[18px] uppercase tracking-wider"
+            
+            {/* Call Now button directed to 050 number */}
+            <motion.a
+              href={`tel:${GARAGE_PHONE_MAIN}`}
+              className="bg-[#f0c93b] w-full md:w-[400px] py-5 font-['Montserrat'] font-black text-black text-[18px] uppercase tracking-wider flex justify-center items-center"
               whileHover={{ backgroundColor: "#000", color: "#f0c93b", outline: "1px solid #f0c93b" }}
               whileTap={{ scale: 0.98 }}
             >
               CALL NOW
-            </motion.button>
+            </motion.a>
           </div>
 
           <div className="flex flex-col">
             <h3 className="font-['Bebas_Neue'] text-white text-[32px] md:text-[56px] mb-8 uppercase">Request a Quote</h3>
             <form onSubmit={handleSubmit} className="space-y-6 max-w-[500px]">
+              {/* Form fields stay the same */}
               <div className="space-y-3">
                 <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[18px] uppercase">Contact Details</p>
                 <InputField label="Full name" required value={formData.fullName} onChange={(e: any) => setFormData({ ...formData, fullName: e.target.value })} />
@@ -176,6 +186,7 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
           </div>
         </div>
 
+        {/* Map section stays the same */}
         <motion.div
           className="flex flex-col w-full"
           initial={{ opacity: 0, y: 30 }}
@@ -188,8 +199,6 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
           </div>
 
           <div className="group relative w-full h-[400px] md:h-[500px] rounded-2xl border-2 border-white/10 overflow-hidden shadow-2xl transition-all duration-500 hover:border-[#f0c93b]/50">
-            
-            {/* 1. The Actual Map */}
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.435775791782!2d55.3520299!3d25.2296107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5d305a0adebf%3A0xb484371531874cb5!2sGenuine%20Auto%20General%20Repairing!5e0!3m2!1sen!2sae!4v1710000000000!5m2!1sen!2sae"
               width="100%"
@@ -201,8 +210,6 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
               title="Workshop Location"
               className="transition-all duration-700 group-hover:filter-none group-hover:brightness-100"
             />
-
-            {/* 2. Invisible Clickable Overlay - This makes the whole map act as a link */}
             <a 
               href={GOOGLE_MAPS_URL}
               target="_blank"
@@ -210,11 +217,8 @@ export function ContactSection({ initialService = "", onCallClick }: ContactSect
               className="absolute inset-0 z-10 cursor-pointer"
               aria-label="Get Directions"
             >
-              {/* Gradient Overlay for style */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60 pointer-events-none" />
             </a>
-
-            {/* 3. The Button (kept for UI, but z-index is higher to remain interactive) */}
             <motion.a 
               href={GOOGLE_MAPS_URL} 
               target="_blank"
@@ -242,23 +246,19 @@ function ContactDetail({ label, value, href }: any) {
       className="flex flex-col items-start gap-1"
       transition={{ type: "spring", stiffness: 400, damping: 15 }}
     >
-      <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[20px] md:text-[28px] uppercase tracking-wide leading-none">
-        {label}
-      </p>
-      {href ? (
-        <a 
-          href={href} 
-          target={href.startsWith('http') ? "_blank" : undefined}
-          rel="noopener noreferrer"
-          className="font-['Montserrat'] font-medium text-white/90 text-[14px] md:text-[18px] hover:text-[#f0c93b] transition-colors leading-snug"
-        >
-          {value}
-        </a>
-      ) : (
-        <p className="font-['Montserrat'] font-medium text-white/90 text-[14px] md:text-[18px] leading-snug">
-          {value}
+      {label && (
+        <p className="font-['Bebas_Neue'] text-[#f0c93b] text-[20px] md:text-[28px] uppercase tracking-wide leading-none">
+          {label}
         </p>
       )}
+      <a 
+        href={href} 
+        target={href.startsWith('http') ? "_blank" : undefined}
+        rel="noopener noreferrer"
+        className="font-['Montserrat'] font-medium text-white/90 text-[14px] md:text-[18px] hover:text-[#f0c93b] transition-colors leading-snug"
+      >
+        {value}
+      </a>
     </motion.div>
   );
 }
