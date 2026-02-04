@@ -86,10 +86,10 @@ export function Footer() {
                   +971 52 489 5673
                 </span>
               </a>
-              <a href="tel:+97151299699" className="group flex items-center gap-3">
+              <a href="tel:+971501299699" className="group flex items-center gap-3">
                 <PhoneIcon className="w-5 h-5 text-[#f0c93b]" />
                 <span className="font-['Montserrat'] font-medium text-white/60 text-[14px] group-hover:text-white transition-colors">
-                  +971 51 299 699
+                  +971 50 129 9699
                 </span>
               </a>
             </div>

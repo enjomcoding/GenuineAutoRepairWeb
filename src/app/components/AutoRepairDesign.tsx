@@ -78,9 +78,9 @@ export function AutoRepairDesign({ isNavSticky }: AutoRepairDesignProps) {
               <a
                 href="tel:+97151299699"
                 className="text-[#b3adb4] text-[13px] md:text-[15px] font-medium hover:text-[#f0c93b] transition-colors whitespace-nowrap"
-                aria-label="Call Genuine Garage at 051 299 699"
+                aria-label="Call Genuine Garage at 050 129 9699"
               >
-                051 299 699
+                050 129 9699
               </a>
             </div>
           </div>
