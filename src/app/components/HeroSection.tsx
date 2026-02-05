@@ -93,7 +93,7 @@ export function HeroSection({ onCallClick }: HeroSectionProps) {
           Car Inspection | Diagnostics | Engine Repair | AC Service | Detailing | Oil Change | Tinting | PPF
           <br className="hidden md:block" />
           <span className="font-semibold text-[#f0c93b] mt-2 block md:inline md:mt-0 md:ml-2">
-            Agency-level service at Umm Ramool's best car workshop!
+            Agency-level service without agency price!
           </span>
         </motion.p>
 
