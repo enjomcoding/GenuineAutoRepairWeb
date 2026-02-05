@@ -84,7 +84,7 @@ export function AboutSection({ onCallClick }: AboutSectionProps) {
 
             {/* Checklist Items */}
             <div className="space-y-6 mb-12">
-              <ChecklistItem text="Years of Excellence" delay={0} isCounter targetValue={10} />
+              <ChecklistItem text="Years of Excellence" delay={0} isCounter targetValue={15} />
               <ChecklistItem text="Certified Master Technicians" delay={0.1} />
               <ChecklistItem text="Advanced Diagnostic Equipment" delay={0.2} />
               <ChecklistItem text="Premium OEM Parts & Materials" delay={0.3} />
